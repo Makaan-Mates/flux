@@ -1,10 +1,10 @@
-import { Button } from "@/components/ui/button";
+import Body from "./pages/Body";
 
 function App() {
   return (
     <>
-      <div className="m-6">
-        <Button variant="outline">Outline</Button>
+      <div className="bg-[#E2E5EB]">
+        <Body />
       </div>
     </>
   );
