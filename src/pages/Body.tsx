@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Sidebar from "../components/custom/Sidebar";
 import Home from "./Home";
+import FluxDetail from "./FluxDetail";
 const AppLayout = () => {
   return (
     <>
@@ -21,6 +22,10 @@ const Body = () => {
         {
           path: "/",
           element: <Home />,
+        },
+        {
+          path: "/fluxdetail",
+          element: <FluxDetail />,
         },
         {
           path: "/about",
