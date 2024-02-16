@@ -13,14 +13,14 @@ const Home = () => {
 
   // const [isLoading, setIsLoading] = useState<boolean>(false);
   // const setNotesAtom = useSetRecoilState(notesAtom);
-  const handleCreateFlux =  async () => {
+  const handleCreateFlux = async () => {
     if (videoId) {
       //setIsLoading(true);
-      const message = await axios.post("http://localhost:4000/api/createflux", {
+      await axios.post("http://localhost:4000/api/createflux", {
         videoId: videoId,
       });
-      console.log(message.data.message);
-     // setNotesAtom(message.data.message);
+      // console.log(message.data.message);
+      // setNotesAtom(message.data.message);
       navigate(`/fluxdetail/${videoId}`);
       //setIsLoading(false);
     }
@@ -28,23 +28,23 @@ const Home = () => {
 
   return (
     <div className="l-0 r-0 m-auto flex h-screen w-[50%] flex-col text-center">
-        <div className="mt-[25%] flex w-full justify-center space-x-12">
-          <Input
-            className="w-[50%] bg-[#EBEDF1] shadow-sm focus:outline-none"
-            type="email"
-            placeholder="Paste your youtube url here"
-            onChange={(e) => {
-              setVideoUrl(e.target.value);
-            }}
-          />
-          <Button
-            className="rounded-full bg-[#2d394b] font-medium shadow-md hover:bg-[#0b1828]"
-            type="submit"
-            onClick={handleCreateFlux}
-          >
-            Create Flux
-          </Button>
-        </div>
+      <div className="mt-[25%] flex w-full justify-center space-x-12">
+        <Input
+          className="w-[50%] bg-[#EBEDF1] shadow-sm focus:outline-none"
+          type="email"
+          placeholder="Paste your youtube url here"
+          onChange={(e) => {
+            setVideoUrl(e.target.value);
+          }}
+        />
+        <Button
+          className="rounded-full bg-[#2d394b] font-medium shadow-md hover:bg-[#0b1828]"
+          type="submit"
+          onClick={handleCreateFlux}
+        >
+          Create Flux
+        </Button>
+      </div>
     </div>
   );
 };
