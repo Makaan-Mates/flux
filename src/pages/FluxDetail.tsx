@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import { useRecoilValueLoadable } from "recoil";
 import { notesAtom } from "../atoms/atoms";
 import { useParams } from "react-router-dom";
+import Box from "@mui/material/Box";
+import LinearProgress from "@mui/material/LinearProgress";
 
 const FluxDetail = () => {
   const { videoId = "" } = useParams();
   const notesLoadable = useRecoilValueLoadable(notesAtom(videoId));
-  const [notes, setNotes] = useState(null);
+  const [notes, setNotes] = useState<string>("");
 
   useEffect(() => {
     if (notesLoadable.state === "hasValue") {
@@ -14,10 +16,33 @@ const FluxDetail = () => {
     }
   }, [notesLoadable]);
 
+  const title = notes.split("Description:")[0].split("Title:")[1] ;
+
+  const description = notes.split("Description:")[1];
+
   return (
     <>
-      <div>FluxDetails</div>
-      <div>{notes}</div>
+      {notesLoadable.state === "loading" ? (
+        <div className="flex w-full flex-col items-center">
+          <div className="w-full">
+            <Box sx={{ width: "100%" }}>
+              <LinearProgress
+              // sx={{
+              //   backgroundColor: "#a3adbe",
+              //   "& .MuiLinearProgress-bar": {
+              //     backgroundColor: "#1C2839",
+              //   },
+              // }}
+              />
+            </Box>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <div className="font-bold text-2xl">{title}</div>
+          <div>{description}</div>
+        </div>
+      )}
     </>
   );
 };
