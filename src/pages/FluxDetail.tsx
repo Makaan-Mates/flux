@@ -1,8 +1,14 @@
-
+import { useRecoilValue } from "recoil";
+import { notesAtom } from "../atoms/atoms";
 const FluxDetail = () => {
-  return (
-    <div>FluxDetail</div>
-  )
-}
+  const notes = useRecoilValue(notesAtom);
 
-export default FluxDetail
+  return (
+    <>
+      <div>FluxDetails</div>
+      <div>{notes}</div>
+    </>
+  );
+};
+
+export default FluxDetail;

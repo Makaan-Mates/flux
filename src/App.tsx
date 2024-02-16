@@ -1,11 +1,13 @@
 import Body from "./pages/Body";
-
+import { RecoilRoot } from "recoil";
 function App() {
   return (
     <>
-      <div className="bg-[#E2E5EB]">
-        <Body />
-      </div>
+      <RecoilRoot>
+        <div className="bg-[#E2E5EB]">
+          <Body />
+        </div>
+      </RecoilRoot>
     </>
   );
 }
