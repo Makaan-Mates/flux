@@ -24,7 +24,7 @@ const Body = () => {
           element: <Home />,
         },
         {
-          path: "/fluxdetail",
+          path: "/fluxdetail:videoId",
           element: <FluxDetail />,
         },
         {
