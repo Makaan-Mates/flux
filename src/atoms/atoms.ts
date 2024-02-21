@@ -1,4 +1,4 @@
-import { atomFamily,selectorFamily,atom } from "recoil";
+import { atomFamily,selectorFamily } from "recoil";
 import axios from "axios";
 
 export const notesAtom = atomFamily({
@@ -12,7 +12,3 @@ export const notesAtom = atomFamily({
   }),
 });
 
-export const videoIdAtom = atom({
-  key: "videoIdAtom",
-  default: "",
-});

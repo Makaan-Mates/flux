@@ -16,9 +16,19 @@ const FluxDetail = () => {
     }
   }, [notesLoadable]);
 
-  const title = notes.split("Description:")[0].split("Title:")[1] ;
 
-  const description = notes.split("Description:")[1];
+  let title = "";
+  let descriptionLines:string[] = [];
+
+  if (notes) {
+    title = notes.split("Description:")[0].split("Title:")[1];
+    const description = notes.split("Description:")[1];
+
+    // Split the description into separate lines
+    if (description) {
+      descriptionLines = description.split('\n');
+    }
+  }
 
   return (
     <>
@@ -40,7 +50,11 @@ const FluxDetail = () => {
       ) : (
         <div>
           <div className="font-bold text-2xl">{title}</div>
-          <div>{description}</div>
+          <ul>
+            {descriptionLines.map((line, index) => (
+              <li key={index}>{line}</li>
+            ))}
+          </ul>
         </div>
       )}
     </>
