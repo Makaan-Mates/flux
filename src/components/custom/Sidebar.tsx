@@ -1,6 +1,8 @@
 import { IoSearch } from "react-icons/io5";
 import { IoAddCircle } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 const Sidebar = () => {
+  const navigate = useNavigate()
   return (
     <>
       <div className="h-screen w-56 bg-[#1C2839] shadow-md shadow-[#B4B4B4]">
@@ -14,9 +16,9 @@ const Sidebar = () => {
             <label className="cursor-pointer pl-4 text-base">Search</label>
           </div>
         </div>
-        <div className="ml-4 mt-10 flex items-center gap-2 text-base text-[#E2E5EB]">
+        <div className="ml-4 mt-10 flex items-center cursor-pointer gap-2 text-base text-[#E2E5EB]" onClick={()=>navigate("/")}>
           <IoAddCircle className="text-xl" />
-          <label>New Flux</label>
+          <label className="cursor-pointer">New Flux</label>
         </div>
         <div className="ml-4 mt-4 flex items-center gap-2 text-base text-[#E2E5EB]">
           <IoAddCircle className="text-xl" />
