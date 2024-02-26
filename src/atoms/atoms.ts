@@ -20,3 +20,4 @@ export const notesAtom = atomFamily({
       },
   }),
 });
+

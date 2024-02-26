@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
 import { useAuth0 } from "@auth0/auth0-react";
+import Bookmark from "@/components/custom/Bookmark";
 
 interface Notes {
   title: string;
@@ -16,10 +17,10 @@ const FluxDetail = () => {
   const email: string = user?.email || "";
   const { videoId = "" } = useParams();
   const notesLoadable = useRecoilValueLoadable(
-    notesAtom({ videoId: videoId, email: email }),
+    notesAtom({ videoId: videoId, email: email })
   );
 
-  const [notes, setNotes] = useState<Notes>({title: "", description: ""});
+  const [notes, setNotes] = useState<Notes>();
 
   useEffect(() => {
     if (notesLoadable.state === "hasValue") {
@@ -30,11 +31,10 @@ const FluxDetail = () => {
   // console.log("notes", notes);
 
   let descriptionLines: string[] = [];
+  if (notes?.description) {
+    descriptionLines = notes?.description?.split("\n");
+  }
 
-    if (notes.description) {
-      descriptionLines = notes.description.split("\n");
-    }
-  
 
   return (
     <>
@@ -56,8 +56,13 @@ const FluxDetail = () => {
       ) : (
         <div>
           <div className="text-2xl font-bold">{notes?.title}</div>
+
+          <div >
+            <Bookmark videoId={videoId} email={email} />
+          </div>
+
           <ul>
-            {descriptionLines.map((line, index) => (
+            {descriptionLines?.map((line, index) => (
               <li key={index}>{line}</li>
             ))}
           </ul>
