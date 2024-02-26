@@ -3,6 +3,7 @@ import Sidebar from "../components/custom/Sidebar";
 import Home from "./Home";
 import FluxDetail from "./FluxDetail";
 import Landing from "./Landing";
+import BookMarkedNotes from "./BookMarkedNotes";
 const AppLayout = () => {
   return (
     <>
@@ -31,6 +32,10 @@ const Body = () => {
         {
           path: "about",
           element: <div>About</div>,
+        },
+        {
+          path: "bookmarkednotes",
+          element: <BookMarkedNotes />,
         },
       ],
     },

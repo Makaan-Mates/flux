@@ -42,13 +42,16 @@ const Sidebar = () => {
           </div>
         </div>
         <div
-          className="ml-4 mt-10 flex cursor-pointer items-center gap-2 text-base text-[#E2E5EB]"
+          className="ml-4 mt-10 flex hover:bg-slate-600 cursor-pointer items-center gap-2 text-base text-[#E2E5EB]"
           onClick={() => navigate("/dashboard")}
         >
           <IoAddCircle className="text-xl" />
-          <label className="cursor-pointer">New Flux</label>
+          <label className="cursor-pointer ">New Flux</label>
         </div>
-        <div className="ml-4 mt-4 flex items-center gap-2 text-base text-[#E2E5EB]">
+        <div
+          className="ml-4 mt-4 hover:bg-slate-600 flex items-center gap-2 text-base text-[#E2E5EB]"
+          onClick={() => navigate("/dashboard/bookmarkednotes")}
+        >
           <IoAddCircle className="text-xl" />
           <label>Bookmarks</label>
         </div>
