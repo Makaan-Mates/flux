@@ -16,7 +16,7 @@ export const notesAtom = atomFamily({
         const response = await axios.get(
           `http://localhost:4000/api/getfluxdetail?videoId=${videoId}&email=${email}`,
         );
-        return response.data.message.description;
+        return response.data.message;
       },
   }),
 });

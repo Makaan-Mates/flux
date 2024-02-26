@@ -6,6 +6,11 @@ import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
 import { useAuth0 } from "@auth0/auth0-react";
 
+interface Notes {
+  title: string;
+  description: string;
+}
+
 const FluxDetail = () => {
   const { user } = useAuth0();
   const email: string = user?.email || "";
@@ -13,7 +18,8 @@ const FluxDetail = () => {
   const notesLoadable = useRecoilValueLoadable(
     notesAtom({ videoId: videoId, email: email }),
   );
-  const [notes, setNotes] = useState<string>("");
+
+  const [notes, setNotes] = useState<Notes>({title: "", description: ""});
 
   useEffect(() => {
     if (notesLoadable.state === "hasValue") {
@@ -21,18 +27,14 @@ const FluxDetail = () => {
     }
   }, [notesLoadable]);
 
-  let title = "";
+  // console.log("notes", notes);
+
   let descriptionLines: string[] = [];
 
-  if (notes) {
-    title = notes.split("Description:")[0].split("Title:")[1];
-    const description = notes.split("Description:")[1];
-
-    // Split the description into separate lines
-    if (description) {
-      descriptionLines = description.split("\n");
+    if (notes.description) {
+      descriptionLines = notes.description.split("\n");
     }
-  }
+  
 
   return (
     <>
@@ -53,7 +55,7 @@ const FluxDetail = () => {
         </div>
       ) : (
         <div>
-          <div className="text-2xl font-bold">{title}</div>
+          <div className="text-2xl font-bold">{notes?.title}</div>
           <ul>
             {descriptionLines.map((line, index) => (
               <li key={index}>{line}</li>
