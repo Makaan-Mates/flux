@@ -4,10 +4,15 @@ import { notesAtom } from "../atoms/atoms";
 import { useParams } from "react-router-dom";
 import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const FluxDetail = () => {
+  const { user } = useAuth0();
+  const email: string = user?.email || "";
   const { videoId = "" } = useParams();
-  const notesLoadable = useRecoilValueLoadable(notesAtom(videoId));
+  const notesLoadable = useRecoilValueLoadable(
+    notesAtom({ videoId: videoId, email: email }),
+  );
   const [notes, setNotes] = useState<string>("");
 
   useEffect(() => {
@@ -16,9 +21,8 @@ const FluxDetail = () => {
     }
   }, [notesLoadable]);
 
-
   let title = "";
-  let descriptionLines:string[] = [];
+  let descriptionLines: string[] = [];
 
   if (notes) {
     title = notes.split("Description:")[0].split("Title:")[1];
@@ -26,7 +30,7 @@ const FluxDetail = () => {
 
     // Split the description into separate lines
     if (description) {
-      descriptionLines = description.split('\n');
+      descriptionLines = description.split("\n");
     }
   }
 
@@ -49,7 +53,7 @@ const FluxDetail = () => {
         </div>
       ) : (
         <div>
-          <div className="font-bold text-2xl">{title}</div>
+          <div className="text-2xl font-bold">{title}</div>
           <ul>
             {descriptionLines.map((line, index) => (
               <li key={index}>{line}</li>

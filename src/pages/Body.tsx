@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Sidebar from "../components/custom/Sidebar";
 import Home from "./Home";
 import FluxDetail from "./FluxDetail";
+import Landing from "./Landing";
 const AppLayout = () => {
   return (
     <>
@@ -16,22 +17,26 @@ const AppLayout = () => {
 const Body = () => {
   const router = createBrowserRouter([
     {
-      path: "/",
+      path: "/dashboard",
       element: <AppLayout />,
       children: [
         {
-          path: "/",
+          path: "",
           element: <Home />,
         },
         {
-          path: "/fluxdetail/:videoId",
+          path: "fluxdetail/:videoId",
           element: <FluxDetail />,
         },
         {
-          path: "/about",
+          path: "about",
           element: <div>About</div>,
         },
       ],
+    },
+    {
+      path: "/",
+      element: <Landing />,
     },
   ]);
 
