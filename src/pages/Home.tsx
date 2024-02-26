@@ -17,11 +17,11 @@ const Home = () => {
   const handleCreateFlux = async () => {
     if (videoId) {
       setIsLoading(true);
-      const message = await axios.post("http://localhost:4000/api/createflux", {
+      await axios.post("http://localhost:4000/api/createflux", {
         videoId: videoId,
         email: user?.email,
       });
-      console.log(message);
+      // console.log(message);
       navigate(`/dashboard/fluxdetail/${videoId}`);
       setIsLoading(false);
     }

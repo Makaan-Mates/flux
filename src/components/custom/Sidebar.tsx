@@ -8,16 +8,16 @@ const Sidebar = () => {
   const { logout, user, isAuthenticated } = useAuth0();
 
   const navigate = useNavigate();
-  console.log(isAuthenticated);
+  // console.log(isAuthenticated);
 
   const storeUserData = async () => {
     if (user) {
-      const response = await axios.post("http://localhost:4000/user/create", {
+      await axios.post("http://localhost:4000/user/create", {
         email: user.email,
         name: user.name,
         photoUrl: user.picture,
       });
-      console.log(response);
+      // console.log(response);
     }
   };
 
@@ -27,7 +27,7 @@ const Sidebar = () => {
     }
   }, [user, isAuthenticated]);
 
-  console.log(user)
+  // console.log(user)
   return (
     <>
       <div className="h-screen w-56 bg-[#1C2839] shadow-md shadow-[#B4B4B4]">
