@@ -1,6 +1,6 @@
 import { FaRegBookmark } from "react-icons/fa6";
 import { FaBookmark } from "react-icons/fa6";
-import {  useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 interface BookmarkProps {
@@ -9,7 +9,7 @@ interface BookmarkProps {
 }
 
 const Bookmark = ({ videoId, email }: BookmarkProps) => {
-  const [bookmarked, setBookmarked] = useState(false);
+  const [bookmarked, setBookmarked] = useState();
 
   const handleBookmark = async () => {
     const response = await axios.post(
@@ -17,22 +17,31 @@ const Bookmark = ({ videoId, email }: BookmarkProps) => {
       {
         videoId: videoId,
         email: email,
-      }
+      },
     );
-    console.log(response.data);
     setBookmarked(response.data.message);
   };
+
+  useEffect(() => {
+    const fetchBookmarkStatus = async () => {
+      const response = await axios.get(
+        `http://localhost:4000/api/bookmarkstatus?videoId=${videoId}&email=${email}`,
+      );
+      setBookmarked(response.data.message);
+    };
+    fetchBookmarkStatus();
+  }, [videoId, email, bookmarked]);
 
   return (
     <div>
       {bookmarked ? (
         <FaBookmark
-          className="m-4 text-2xl cursor-pointer"
+          className="m-4 cursor-pointer text-2xl"
           onClick={handleBookmark}
         />
       ) : (
         <FaRegBookmark
-          className="m-4 text-2xl cursor-pointer"
+          className="m-4 cursor-pointer text-2xl"
           onClick={handleBookmark}
         />
       )}

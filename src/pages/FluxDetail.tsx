@@ -17,7 +17,7 @@ const FluxDetail = () => {
   const email: string = user?.email || "";
   const { videoId = "" } = useParams();
   const notesLoadable = useRecoilValueLoadable(
-    notesAtom({ videoId: videoId, email: email })
+    notesAtom({ videoId: videoId, email: email }),
   );
 
   const [notes, setNotes] = useState<Notes>();
@@ -34,7 +34,6 @@ const FluxDetail = () => {
   if (notes?.description) {
     descriptionLines = notes?.description?.split("\n");
   }
-
 
   return (
     <>
@@ -57,9 +56,7 @@ const FluxDetail = () => {
         <div>
           <div className="text-2xl font-bold">{notes?.title}</div>
 
-          <div >
-            <Bookmark videoId={videoId} email={email} />
-          </div>
+          <div>{notes && <Bookmark videoId={videoId} email={email} />}</div>
 
           <ul>
             {descriptionLines?.map((line, index) => (
