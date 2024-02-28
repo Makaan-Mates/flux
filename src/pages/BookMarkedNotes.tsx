@@ -37,7 +37,7 @@ const BookMarkedNotes = () => {
 
   const deleteNoteHandler = async(_id:string) => {
    try{
-    await axios.delete(`http://localhost:4000/api/deleteBookMarkedNote/${_id}`)
+    await axios.delete(`https://flux-backend-production.up.railway.app/api/deleteBookMarkedNote/${_id}`)
     const updatedNotes = notes?.filter((note: Notes) => note._id !== _id);
     setNotes(updatedNotes)
    }catch(error){
