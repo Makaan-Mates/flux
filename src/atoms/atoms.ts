@@ -14,7 +14,7 @@ export const notesAtom = atomFamily({
       ({ videoId, email }: Params) =>
       async () => {
         const response = await axios.get(
-          `http://localhost:4000/api/getfluxdetail?videoId=${videoId}&email=${email}`,
+          `https://flux-backend-production.up.railway.app/api/getfluxdetail?videoId=${videoId}&email=${email}`,
         );
         return response.data.message;
       },
