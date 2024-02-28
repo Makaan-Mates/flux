@@ -55,6 +55,7 @@ const Sidebar = () => {
           <IoAddCircle className="text-xl" />
           <label>Bookmarks</label>
         </div>
+        
         <div className="p-4 m-8 text-white">{user?.name}</div>
         <button
           onClick={() =>
