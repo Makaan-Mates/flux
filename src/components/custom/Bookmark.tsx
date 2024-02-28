@@ -13,7 +13,7 @@ const Bookmark = ({ videoId, email }: BookmarkProps) => {
 
   const handleBookmark = async () => {
     const response = await axios.post(
-      "http://localhost:4000/api/bookmarkflux",
+      "https://flux-backend-production.up.railway.app/api/bookmarkflux",
       {
         videoId: videoId,
         email: email,
@@ -25,7 +25,7 @@ const Bookmark = ({ videoId, email }: BookmarkProps) => {
   useEffect(() => {
     const fetchBookmarkStatus = async () => {
       const response = await axios.get(
-        `http://localhost:4000/api/bookmarkstatus?videoId=${videoId}&email=${email}`,
+        `flux-backend-production.up.railway.app/api/bookmarkstatus?videoId=${videoId}&email=${email}`,
       );
       setBookmarked(response.data.message);
     };
