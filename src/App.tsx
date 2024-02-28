@@ -8,8 +8,7 @@ function App() {
         domain="sourabhrathour.us.auth0.com"
         clientId="j16YpB4zK6llSTvxuXIzwN4G3GUSwMwS"
         authorizationParams={{
-          redirect_uri:
-            "https://flux-backend-production.up.railway.app/dashboard/",
+          redirect_uri: "http://localhost:5173/dashboard/",
         }}
       >
         <RecoilRoot>

@@ -6,13 +6,13 @@ import axios from "axios";
 import { useEffect } from "react";
 const Sidebar = () => {
   const { logout, user, isAuthenticated } = useAuth0();
-
+  const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
   const navigate = useNavigate();
   // console.log(isAuthenticated);
 
   const storeUserData = async () => {
     if (user) {
-      await axios.post("https://flux-backend-production.up.railway.app/user/create", {
+      await axios.post(`${apiUrl}/user/create`, {
         email: user.email,
         name: user.name,
         photoUrl: user.picture,
