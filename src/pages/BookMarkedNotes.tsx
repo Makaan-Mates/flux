@@ -24,7 +24,7 @@ const BookMarkedNotes = () => {
     const fetchNotes = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/api/getUserNotes?email=${email}`
+          `https://flux-backend-production.up.railway.app/api/getUserNotes?email=${email}`
         );
         setNotes(response.data.message);
       } catch (error) {
@@ -46,13 +46,15 @@ const BookMarkedNotes = () => {
 
   }
 
-//   console.log("notes", notes);
- const bookmarkedNotes = notes?.filter((note: Notes) => note.bookmarked);
+
+  //   console.log("notes", notes);
+  const bookmarkedNotes = notes?.filter((note: Notes) => note.bookmarked);
 
   return (
     <div className="flex flex-wrap ">
       {bookmarkedNotes
         ? bookmarkedNotes?.map((note: Notes) => ( 
+
             <div
               key={note?._id}
               className="m-4 w-64 h-64 rounded overflow-hidden shadow-lg bg-gray-300  cursor-pointer "

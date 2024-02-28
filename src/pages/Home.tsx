@@ -17,7 +17,7 @@ const Home = () => {
   const handleCreateFlux = async () => {
     if (videoId) {
       setIsLoading(true);
-      await axios.post("http://localhost:4000/api/createflux", {
+      await axios.post("https://flux-backend-production.up.railway.app/api/createflux", {
         videoId: videoId,
         email: user?.email,
       });

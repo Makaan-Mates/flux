@@ -12,7 +12,7 @@ const Sidebar = () => {
 
   const storeUserData = async () => {
     if (user) {
-      await axios.post("http://localhost:4000/user/create", {
+      await axios.post("https://flux-backend-production.up.railway.app/user/create", {
         email: user.email,
         name: user.name,
         photoUrl: user.picture,
