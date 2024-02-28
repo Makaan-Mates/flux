@@ -19,12 +19,13 @@ const BookMarkedNotes = () => {
   const email: string = user?.email || "";
   const [notes, setNotes] = useState<Notes[]>([]);
   const navigate = useNavigate();
+  const apiUrl = import.meta.env.VITE_REACT_APP_API_URL
 
   useEffect(() => {
     const fetchNotes = async () => {
       try {
         const response = await axios.get(
-          `https://flux-backend-production.up.railway.app/api/getUserNotes?email=${email}`
+          `${apiUrl}/api/getUserNotes?email=${email}`
         );
         setNotes(response.data.message);
       } catch (error) {
@@ -37,15 +38,13 @@ const BookMarkedNotes = () => {
 
   const deleteNoteHandler = async(_id:string) => {
    try{
-    await axios.delete(`https://flux-backend-production.up.railway.app/api/deleteBookMarkedNote/${_id}`)
+    await axios.delete(`${apiUrl}/api/deleteBookMarkedNote/${_id}`)
     const updatedNotes = notes?.filter((note: Notes) => note._id !== _id);
     setNotes(updatedNotes)
    }catch(error){
      console.log(error)
    }
-
   }
-
 
   //   console.log("notes", notes);
   const bookmarkedNotes = notes?.filter((note: Notes) => note.bookmarked);

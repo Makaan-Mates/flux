@@ -12,12 +12,13 @@ const Home = () => {
   const navigate = useNavigate();
   const [videoUrl, setVideoUrl] = useState<string>("");
   const videoId = videoUrl.split("v=")[1];
+  const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const handleCreateFlux = async () => {
     if (videoId) {
       setIsLoading(true);
-      await axios.post("https://flux-backend-production.up.railway.app/api/createflux", {
+      await axios.post(`${apiUrl}/api/createflux`, {
         videoId: videoId,
         email: user?.email,
       });
