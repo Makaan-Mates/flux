@@ -17,7 +17,7 @@ const Bookmark = ({ videoId, email }: BookmarkProps) => {
       {
         videoId: videoId,
         email: email,
-      },
+      }
     );
     setBookmarked(response.data.message);
   };
@@ -25,7 +25,7 @@ const Bookmark = ({ videoId, email }: BookmarkProps) => {
   useEffect(() => {
     const fetchBookmarkStatus = async () => {
       const response = await axios.get(
-        `flux-backend-production.up.railway.app/api/bookmarkstatus?videoId=${videoId}&email=${email}`,
+        `https://flux-backend-production.up.railway.app/api/bookmarkstatus?videoId=${videoId}&email=${email}`
       );
       setBookmarked(response.data.message);
     };
