@@ -18,13 +18,19 @@ const Home = () => {
   const handleCreateFlux = async () => {
     if (videoId) {
       setIsLoading(true);
-      await axios.post(`${apiUrl}/api/createflux`, {
-        videoId: videoId,
-        email: user?.email,
-      });
-      // console.log(message);
-      navigate(`/dashboard/fluxdetail/${videoId}`);
-      setIsLoading(false);
+      try {
+        const response = await axios.post(`${apiUrl}/api/createflux`, {
+          videoId: videoId,
+          email: user?.email,
+        });
+        console.log(response.data);
+
+        navigate(`/dashboard/fluxdetail/${videoId}`);
+      } catch (error) {
+        console.error("Error Creating flux", error);
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -42,7 +48,7 @@ const Home = () => {
           />
         </Box>
       </div>
-      <div className="m-16 flex h-[30%] w-[40%] flex-col items-center justify-center gap-y-2 rounded-lg bg-[#d7dbe3] text-[#2d394b] ">
+      <div className="m-16 flex h-[30%] w-[40%] flex-col items-center justify-center gap-y-2 rounded-lg bg-[#d7dbe3] text-[#2d394b]  ">
         <h1 className="text-3xl font-semibold">Creating notes for you...</h1>
         <h2 className="mb-2 font-normal">Please wait for a moment</h2>
         <Box sx={{ display: "flex" }}>

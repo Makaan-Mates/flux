@@ -7,7 +7,7 @@ import BookMarkedNotes from "./BookMarkedNotes";
 const AppLayout = () => {
   return (
     <>
-      <div className="flex">
+      <div className="flex max-h-screen">
         <Sidebar />
         <Outlet />
       </div>
