@@ -7,7 +7,6 @@ type Params = {
 };
 const apiUrl = import.meta.env.VITE_REACT_APP_API_URL
 
-
 export const notesAtom = atomFamily({
   key: "notesAtom",
   default: selectorFamily({
