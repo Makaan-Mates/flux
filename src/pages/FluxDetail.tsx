@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
 import { useAuth0 } from "@auth0/auth0-react";
 import Bookmark from "@/components/custom/Bookmark";
-
+import SelectComponent from "@/components/custom/SelectComponent";
 interface Notes {
   title: string;
   description: string;
@@ -14,7 +14,10 @@ interface Notes {
 
 const FluxDetail = () => {
   const { user } = useAuth0();
+
   const email: string = user?.email || "";
+
+  console.log(user);
   const { videoId = "" } = useParams();
   const notesLoadable = useRecoilValueLoadable(
     notesAtom({ videoId: videoId, email: email })
@@ -56,8 +59,17 @@ const FluxDetail = () => {
         <div>
           <div className="text-2xl font-bold">{notes?.title}</div>
 
-          <div>{notes && <Bookmark videoId={videoId} email={email} />}</div>
-
+          <div className="flex">
+            <div>{notes && <Bookmark videoId={videoId} email={email} />}</div>
+            {notes && (
+              <div className="mb-10 mt-2 w-[50%]">
+                <SelectComponent
+                  fluxTitle={notes?.title}
+                  fluxDescription={notes?.description}
+                />
+              </div>
+            )}
+          </div>
           <ul>
             {descriptionLines?.map((line, index) => (
               <li key={index}>{line}</li>
