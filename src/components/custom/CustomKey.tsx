@@ -31,7 +31,13 @@ const frameworks = [
   },
 ];
 
-const Customkey = ({ email , onRequestClose }) => {
+const Customkey = ({
+  email,
+  onRequestClose,
+}: {
+  email: string;
+  onRequestClose: () => void;
+}) => {
   const customkeyRef = useRef<HTMLInputElement>(null);
   const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
   const [validateApiKey, setValidateApiKey] = useState<boolean>(false);
@@ -69,7 +75,7 @@ const Customkey = ({ email , onRequestClose }) => {
       title: response?.data?.message,
     });
     setValidateApiKey(false);
-    onRequestClose(); 
+    onRequestClose();
   };
 
   const handleDeleteApikey = async () => {
@@ -80,7 +86,7 @@ const Customkey = ({ email , onRequestClose }) => {
     toast({
       title: response?.data?.message,
     });
-    onRequestClose(); 
+    onRequestClose();
   };
 
   return (
