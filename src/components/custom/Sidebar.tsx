@@ -15,21 +15,26 @@ const Sidebar = () => {
   const [toggleCustomKey, setToggleCustomKey] = useState<boolean>(false);
   // console.log(isAuthenticated);
   console.log(user);
-
+  
   const [params, setParams] = useSearchParams();
-  console.log(params.get("code"));
+
+  useEffect(() => {
+    const storeUserData = async () => {
+      if (user) {
+        await axios.post(`${apiUrl}/user/create`, {
+          email: user.email,
+          name: user.name,
+          photoUrl: user.picture,
+        });
+      }
+    };
+      
+       if (isAuthenticated) {
+      storeUserData();
+    }
+  }, [user, isAuthenticated, apiUrl]);
 
   // exhanging code for access token
-  const storeUserData = async () => {
-    if (user) {
-      await axios.post(`${apiUrl}/user/create`, {
-        email: user.email,
-        name: user.name,
-        photoUrl: user.picture,
-      });
-      // console.log(response);
-    }
-  };
 
   useEffect(() => {
     const getAccessToken = async () => {
@@ -54,12 +59,6 @@ const Sidebar = () => {
     getAccessToken();
   }, [params.get("code")]);
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      storeUserData();
-    }
-  }, [user, isAuthenticated]);
-
   const handleToggleCustomKey = () => {
     setToggleCustomKey(!toggleCustomKey);
   };
@@ -68,7 +67,6 @@ const Sidebar = () => {
     setToggleCustomKey(!toggleCustomKey);
   };
 
-  // console.log(user)
   return (
     <>
       <div className="max-h-screen w-56 bg-[#1C2839] shadow-md shadow-[#B4B4B4]">
@@ -151,7 +149,7 @@ const Sidebar = () => {
       </div>
       {toggleCustomKey && (
         <Customkey
-          email={user?.email}
+          email={user?.email || ""}
           onRequestClose={toggleCustomKeyVisibility}
         />
       )}

@@ -13,13 +13,10 @@ const Bookmark = ({ videoId, email }: BookmarkProps) => {
   const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
 
   const handleBookmark = async () => {
-    const response = await axios.post(
-      `${apiUrl}/api/bookmarkflux`,
-      {
-        videoId: videoId,
-        email: email,
-      }
-    );
+    const response = await axios.post(`${apiUrl}/api/bookmarkflux`, {
+      videoId: videoId,
+      email: email,
+    });
     setBookmarked(response.data.message);
   };
 
@@ -31,7 +28,8 @@ const Bookmark = ({ videoId, email }: BookmarkProps) => {
       setBookmarked(response.data.message);
     };
     fetchBookmarkStatus();
-  }, [videoId, email, bookmarked]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [videoId, email]);
 
   return (
     <div>

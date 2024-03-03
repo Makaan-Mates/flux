@@ -16,7 +16,6 @@ const Home = () => {
   const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
   const { toast } = useToast();
 
   const handleCreateFlux = async () => {
@@ -31,31 +30,23 @@ const Home = () => {
         console.log(response.data);
 
         navigate(`/dashboard/fluxdetail/${videoId}`);
-      } catch (error: any) {
+      } catch (error) {
         console.error("Error Creating flux", error);
-        setError(error.response?.data?.message);
-        toast({
-          title: error.response?.data?.message,
-        });
+        if (axios.isAxiosError(error)) {
+          toast({
+            title: error.response?.data?.message,
+          });
+        } else {
+          console.log("Unexpected error", error);
+        }
       } finally {
         setIsLoading(false);
       }
     }
   };
 
-  // useEffect(() => {
-  //   toast({
-  //     title: `${error}`,
-  //   });
-  // }, [error]);
-
-  if (error) {
-    console.log("error");
-  }
-
   return isLoading ? (
     <>
-      {error && <div className="text-red-500">{error}</div>}
       <div className="flex w-full flex-col items-center">
         <div className="w-full">
           <Box sx={{ width: "100%" }}>
