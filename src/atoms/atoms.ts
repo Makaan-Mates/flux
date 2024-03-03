@@ -5,6 +5,7 @@ type Params = {
   videoId: string;
   email: string;
 };
+const apiUrl = import.meta.env.VITE_REACT_APP_API_URL
 
 export const notesAtom = atomFamily({
   key: "notesAtom",
@@ -14,7 +15,7 @@ export const notesAtom = atomFamily({
       ({ videoId, email }: Params) =>
       async () => {
         const response = await axios.get(
-          `http://localhost:4000/api/getfluxdetail?videoId=${videoId}&email=${email}`,
+          `${apiUrl}/api/getfluxdetail?videoId=${videoId}&email=${email}`,
         );
         return response.data.message;
       },

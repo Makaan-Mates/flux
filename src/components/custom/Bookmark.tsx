@@ -10,14 +10,15 @@ interface BookmarkProps {
 
 const Bookmark = ({ videoId, email }: BookmarkProps) => {
   const [bookmarked, setBookmarked] = useState();
+  const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
 
   const handleBookmark = async () => {
     const response = await axios.post(
-      "http://localhost:4000/api/bookmarkflux",
+      `${apiUrl}/api/bookmarkflux`,
       {
         videoId: videoId,
         email: email,
-      },
+      }
     );
     setBookmarked(response.data.message);
   };
@@ -25,7 +26,7 @@ const Bookmark = ({ videoId, email }: BookmarkProps) => {
   useEffect(() => {
     const fetchBookmarkStatus = async () => {
       const response = await axios.get(
-        `http://localhost:4000/api/bookmarkstatus?videoId=${videoId}&email=${email}`,
+        `${apiUrl}/api/bookmarkstatus?videoId=${videoId}&email=${email}`
       );
       setBookmarked(response.data.message);
     };

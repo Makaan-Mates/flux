@@ -4,12 +4,15 @@ import Home from "./Home";
 import FluxDetail from "./FluxDetail";
 import Landing from "./Landing";
 import BookMarkedNotes from "./BookMarkedNotes";
+import { Toaster } from "@/components/ui/toaster"
+
 const AppLayout = () => {
   return (
     <>
-      <div className="flex">
+      <div className="flex max-h-screen">
         <Sidebar />
         <Outlet />
+        <Toaster />
       </div>
     </>
   );

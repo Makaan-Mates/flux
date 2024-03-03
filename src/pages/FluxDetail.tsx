@@ -20,7 +20,7 @@ const FluxDetail = () => {
   console.log(user);
   const { videoId = "" } = useParams();
   const notesLoadable = useRecoilValueLoadable(
-    notesAtom({ videoId: videoId, email: email }),
+    notesAtom({ videoId: videoId, email: email })
   );
 
   const [notes, setNotes] = useState<Notes>();
@@ -41,7 +41,7 @@ const FluxDetail = () => {
   return (
     <>
       {notesLoadable.state === "loading" ? (
-        <div className="flex w-full flex-col items-center">
+        <div className="flex w-full flex-col items-center ">
           <div className="w-full">
             <Box sx={{ width: "100%" }}>
               <LinearProgress
