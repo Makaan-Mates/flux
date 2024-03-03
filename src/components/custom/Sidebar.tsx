@@ -15,7 +15,7 @@ const Sidebar = () => {
   const [toggleCustomKey, setToggleCustomKey] = useState<boolean>(false);
   // console.log(isAuthenticated);
   console.log(user);
-  
+
   const [params, setParams] = useSearchParams();
 
   useEffect(() => {
@@ -28,8 +28,8 @@ const Sidebar = () => {
         });
       }
     };
-      
-       if (isAuthenticated) {
+
+    if (isAuthenticated) {
       storeUserData();
     }
   }, [user, isAuthenticated, apiUrl]);
@@ -43,14 +43,14 @@ const Sidebar = () => {
           "http://localhost:4000/api/accesstoken",
           {
             code: params.get("code"),
-          },
+          }
         );
 
         console.log(response);
         if (response?.data?.message?.access_token) {
           localStorage.setItem(
             "accessToken",
-            response?.data?.message?.access_token,
+            response?.data?.message?.access_token
           );
         }
       }
@@ -99,6 +99,12 @@ const Sidebar = () => {
             </div>
           </div>
           <div className="">
+            <div className="text-[#B7BFCC] my-2 cursor-pointer px-2 py-2 rounded-md flex justify-center bg-[#2A3647]">
+              <a href="https://api.notion.com/v1/oauth/authorize?client_id=d022d63c-bf14-4483-b742-8f261dbcc2f3&response_type=code&owner=user&redirect_uri=http%3A%2F%2Flocalhost%3A5173%2Fdashboard">
+                <button>Connect to Notion</button>
+              </a>
+            </div>
+
             <div
               onClick={handleToggleCustomKey}
               className="flex h-8 w-52 cursor-pointer items-center rounded-md bg-[#2A3647] pl-4 text-[#B7BFCC]"
@@ -119,33 +125,6 @@ const Sidebar = () => {
             </button>
           </div>
         </div>
-        <div
-          className="ml-4 mt-10 flex cursor-pointer items-center gap-2 text-base text-[#E2E5EB] hover:bg-slate-600"
-          onClick={() => navigate("/dashboard")}
-        >
-          <IoAddCircle className="text-xl" />
-          <label className="cursor-pointer ">New Flux</label>
-        </div>
-        <div
-          className="ml-4 mt-4 flex items-center gap-2 text-base text-[#E2E5EB] hover:bg-slate-600"
-          onClick={() => navigate("/dashboard/bookmarkednotes")}
-        >
-          <IoAddCircle className="text-xl" />
-          <label>Bookmarks</label>
-        </div>
-        <div className="m-8 p-4 text-white">{user?.name}</div>
-        <button
-          onClick={() =>
-            logout({ logoutParams: { returnTo: window.location.origin } })
-          }
-          className="m-8 rounded bg-red-500 px-4 py-2 font-bold text-white hover:bg-red-700"
-        >
-          Logout
-        </button>
-
-        <a href="https://api.notion.com/v1/oauth/authorize?client_id=d022d63c-bf14-4483-b742-8f261dbcc2f3&response_type=code&owner=user&redirect_uri=http%3A%2F%2Flocalhost%3A5173%2Fdashboard">
-          <button>Connect to Notion</button>
-        </a>
       </div>
       {toggleCustomKey && (
         <Customkey
