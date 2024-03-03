@@ -35,6 +35,10 @@ const Sidebar = () => {
     setToggleCustomKey(!toggleCustomKey);
   };
 
+  const toggleCustomKeyVisibility = () => {
+    setToggleCustomKey(!toggleCustomKey);
+  };
+
   // console.log(user)
   return (
     <>
@@ -89,7 +93,12 @@ const Sidebar = () => {
           </div>
         </div>
       </div>
-      {toggleCustomKey && <Customkey email ={user?.email} />}
+      {toggleCustomKey && (
+        <Customkey
+          email={user?.email}
+          onRequestClose={toggleCustomKeyVisibility}
+        />
+      )}
     </>
   );
 };
