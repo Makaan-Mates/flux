@@ -14,9 +14,8 @@ const Sidebar = () => {
   const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
   const navigate = useNavigate();
   const [toggleCustomKey, setToggleCustomKey] = useState<boolean>(false);
-  const [showCommandDialog,setShowCommandDialog] = useState<boolean>(false)
-  console.log(user);
-
+  comsole.log(user)
+ 
   const [params, setParams] = useSearchParams();
 
   useEffect(() => {
@@ -68,9 +67,6 @@ const Sidebar = () => {
     setToggleCustomKey(!toggleCustomKey);
   };
 
-  const toggleCommandDialog = () => {
-    setShowCommandDialog(!showCommandDialog)
-  }
 
   return (
     <>
