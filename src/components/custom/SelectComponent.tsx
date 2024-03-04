@@ -94,7 +94,7 @@ function SelectComponent({ fluxTitle, fluxDescription }) {
                 <SelectContent>
                   {notionPages.map((page) => (
                     <SelectItem key={page.id} value={page.id}>
-                      {page.properties.title.title[0].plain_text}
+                      {page?.properties?.title?.title[0]?.plain_text}
                     </SelectItem>
                   ))}
                 </SelectContent>

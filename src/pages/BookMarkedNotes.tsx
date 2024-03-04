@@ -50,10 +50,10 @@ const BookMarkedNotes = () => {
   return (
     <div className="flex flex-wrap ">
       {bookmarkedNotes
-        ? bookmarkedNotes?.map((note: Notes) => (
+        ? bookmarkedNotes?.reverse().map((note: Notes) => (
             <div
               key={note?._id}
-              className="m-4 h-64 w-64 cursor-pointer overflow-hidden rounded bg-gray-300  shadow-lg "
+              className="m-4 h-72 w-64 cursor-pointer overflow-hidden rounded bg-gray-300  shadow-lg "
               onClick={() => {
                 navigate(`/dashboard/fluxdetail/${note?.videoId}`);
               }}

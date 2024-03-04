@@ -7,14 +7,14 @@ import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import Customkey from "./CustomKey";
-import CommandMenu from "./CommandMenu";
+
 
 const Sidebar = () => {
   const { logout, user, isAuthenticated } = useAuth0();
   const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
   const navigate = useNavigate();
   const [toggleCustomKey, setToggleCustomKey] = useState<boolean>(false);
-  // console.log(isAuthenticated);
+  const [showCommandDialog,setShowCommandDialog] = useState<boolean>(false)
   console.log(user);
 
   const [params, setParams] = useSearchParams();
@@ -67,6 +67,10 @@ const Sidebar = () => {
   const toggleCustomKeyVisibility = () => {
     setToggleCustomKey(!toggleCustomKey);
   };
+
+  const toggleCommandDialog = () => {
+    setShowCommandDialog(!showCommandDialog)
+  }
 
   return (
     <>
