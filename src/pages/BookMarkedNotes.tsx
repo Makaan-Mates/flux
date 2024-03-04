@@ -23,7 +23,7 @@ const BookMarkedNotes = () => {
     const fetchNotes = async () => {
       try {
         const response = await axios.get(
-          `${apiUrl}/api/getUserNotes?email=${email}`
+          `${apiUrl}/api/getUserNotes?email=${email}`,
         );
         setNotes(response.data.message);
       } catch (error) {
@@ -53,18 +53,18 @@ const BookMarkedNotes = () => {
         ? bookmarkedNotes?.map((note: Notes) => (
             <div
               key={note?._id}
-              className="m-4 w-64 h-64 rounded overflow-hidden shadow-lg bg-gray-300  cursor-pointer "
+              className="m-4 h-64 w-64 cursor-pointer overflow-hidden rounded bg-gray-300  shadow-lg "
               onClick={() => {
                 navigate(`/dashboard/fluxdetail/${note?.videoId}`);
               }}
             >
               <div className="px-6 py-4 ">
-                <div className="font-bold text-xl mb-2">{note?.title}</div>
-                <p className="text-base line-clamp-3 ">{note?.description}</p>
+                <div className="mb-2 text-xl font-bold">{note?.title}</div>
+                <p className="line-clamp-3 text-base ">{note?.description}</p>
               </div>
-              <div className="px-6 pt-4 pb-2">
+              <div className="px-6 pb-2 pt-4">
                 <RiDeleteBin6Fill
-                  className=" text-2xl cursor-pointer"
+                  className=" cursor-pointer text-2xl"
                   onClick={(e) => {
                     e.stopPropagation();
                     deleteNoteHandler(note?._id);

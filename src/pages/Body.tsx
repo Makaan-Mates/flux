@@ -4,14 +4,17 @@ import Home from "./Home";
 import FluxDetail from "./FluxDetail";
 import Landing from "./Landing";
 import BookMarkedNotes from "./BookMarkedNotes";
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "@/components/ui/toaster";
+import { CommandDialogDemo } from "@/components/custom/CommandDialogDemo";
 
 const AppLayout = () => {
   return (
     <>
       <div className="flex max-h-screen">
         <Sidebar />
+
         <Outlet />
+        <CommandDialogDemo />
         <Toaster />
       </div>
     </>
