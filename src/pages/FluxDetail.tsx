@@ -13,10 +13,13 @@ import rehypeRaw from "rehype-raw";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
 import { RiNotionFill } from "react-icons/ri";
+import { TbSend } from "react-icons/tb";
+import { toast } from "sonner";
 
 interface Notes {
   title: string;
   description: string;
+  _id: string;
 }
 
 interface ReportData extends Notes {
@@ -38,7 +41,7 @@ const FluxDetail = () => {
   console.log(user);
   const { videoId = "" } = useParams();
   const notesLoadable = useRecoilValueLoadable(
-    notesAtom({ videoId: videoId, email: email })
+    notesAtom({ videoId: videoId, email: email }),
   );
 
   const [notes, setNotes] = useState<ReportData | null>(null);
@@ -49,6 +52,16 @@ const FluxDetail = () => {
       setNotes(notesLoadable.contents);
     }
   }, [notesLoadable]);
+
+  const copyShareableLink = () => {
+    const host = window.location.origin; // Gets the base URL of your app
+    const shareableLink = `${host}/shared/${notes?._id}`;
+
+    // Copy the link to the clipboard
+    navigator.clipboard.writeText(shareableLink).then(() => {
+      toast("Shareable link copied to clipboard!");
+    });
+  };
 
   return (
     <>
@@ -68,17 +81,21 @@ const FluxDetail = () => {
           </div>
         </div>
       ) : (
-        <div className="py-14 w-full ">
-          <div className="px-24 text-2xl font-bold text-left">
+        <div className="w-full py-14 ">
+          <div className="px-24 text-left text-2xl font-bold">
             {notes?.title}
           </div>
 
-          <div className="relative flex items-center justify-end px-24 ">
+          <div className="relative flex items-center justify-end px-28 ">
             <div>{notes && <Bookmark videoId={videoId} email={email} />}</div>
+            <TbSend
+              className="mr-3 cursor-pointer text-2xl"
+              onClick={() => copyShareableLink()}
+            />
             <div>
               {notes && (
                 <RiNotionFill
-                  className="text-2xl"
+                  className="cursor-pointer text-3xl"
                   onClick={() => {
                     setToggleNotion(!toggleNotion);
                   }}
@@ -86,7 +103,7 @@ const FluxDetail = () => {
               )}
             </div>
             {notes && toggleNotion && (
-              <div className="absolute right-0 top-10 mb-10 mt-2 w-[50%] flex justify-center">
+              <div className="absolute right-0 top-10 mb-10 mt-2 flex w-[50%] justify-center">
                 <SelectComponent
                   fluxTitle={notes?.title}
                   fluxDescription={notes?.description}
@@ -97,11 +114,11 @@ const FluxDetail = () => {
               </div>
             )}
           </div>
-          <div className=" flex items-center justify-center px-20 ">
+          <div className=" flex items-center justify-center px-20">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               rehypePlugins={[rehypeRaw]}
-              className="mb-10 mt-10 whitespace-pre-wrap rounded-lg border border-[#d1d1d1] bg-[#E8EAEF] px-10 pt-8 "
+              className="mb-10 mt-10 whitespace-pre-wrap rounded-lg border border-[#d1d1d1] bg-[#E8EAEF] px-10 py-10 "
               components={{
                 h1: ({ ...props }) => (
                   <h1

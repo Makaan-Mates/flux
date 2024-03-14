@@ -4,13 +4,14 @@ import Home from "./Home";
 import FluxDetail from "./FluxDetail";
 import Landing from "./Landing";
 import BookMarkedNotes from "./BookMarkedNotes";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "@/components/ui/sonner";
 import { CommandDialogDemo } from "@/components/custom/CommandDialogDemo";
+import SharedNote from "./SharedNote";
 
 const AppLayout = () => {
   return (
     <>
-      <div className="flex font-geist ">
+      <div className="font-geist flex ">
         <Sidebar />
         <Outlet />
       </div>
@@ -47,6 +48,10 @@ const Body = () => {
     {
       path: "/",
       element: <Landing />,
+    },
+    {
+      path: "/shared/:noteId",
+      element: <SharedNote />,
     },
   ]);
 
