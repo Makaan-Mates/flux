@@ -1,14 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {
-  Calculator,
-  Calendar,
-  CreditCard,
-  Settings,
-  Smile,
-  User,
-} from "lucide-react";
+import { Calculator, Calendar, CreditCard, Smile } from "lucide-react";
 
 import {
   CommandDialog,
@@ -18,7 +11,6 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-  CommandShortcut,
 } from "@/components/ui/command";
 import { useAuth0 } from "@auth0/auth0-react";
 import { bookmarkAtom } from "../../atoms/atoms";
@@ -34,6 +26,7 @@ export function CommandDialogDemo() {
   const notesLoadable = useRecoilValueLoadable(bookmarkAtom(email));
   const [notes, setNotes] = useState();
 
+  // @ts-ignore
   const handleCommandSelect = (videoId) => {
     setOpen(false);
     navigate(`/dashboard/fluxdetail/${videoId}`);
@@ -44,6 +37,7 @@ export function CommandDialogDemo() {
       setNotes(notesLoadable.contents);
     }
   }, [notesLoadable]);
+  // @ts-ignore
   const bookmarkedNotes = notes?.filter((note) => note.bookmarked);
 
   console.log("Bookmark", bookmarkedNotes);
@@ -97,6 +91,7 @@ export function CommandDialogDemo() {
           <CommandSeparator />
           <CommandGroup heading="Bookmarked Flux">
             {bookmarkedNotes &&
+              // @ts-ignore
               bookmarkedNotes?.map((note) => (
                 <CommandItem
                   className="cursor-pointer"
