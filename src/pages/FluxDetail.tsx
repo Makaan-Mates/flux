@@ -38,7 +38,7 @@ const FluxDetail = () => {
   console.log(user);
   const { videoId = "" } = useParams();
   const notesLoadable = useRecoilValueLoadable(
-    notesAtom({ videoId: videoId, email: email })
+    notesAtom({ videoId: videoId, email: email }),
   );
 
   const [notes, setNotes] = useState<ReportData | null>(null);
@@ -68,8 +68,8 @@ const FluxDetail = () => {
           </div>
         </div>
       ) : (
-        <div className="">
-          <div className="text-2xl font-bold px-20">{notes?.title}</div>
+        <div className="mt-14">
+          <div className="px-20 text-2xl font-bold">{notes?.title}</div>
 
           <div className="relative flex items-center px-16">
             <div>{notes && <Bookmark videoId={videoId} email={email} />}</div>
@@ -84,7 +84,7 @@ const FluxDetail = () => {
               )}
             </div>
             {notes && toggleNotion && (
-              <div className="mb-10 mt-2 w-[50%] absolute left-12 top-10">
+              <div className="absolute left-12 top-10 mb-10 mt-2 w-[50%]">
                 <SelectComponent
                   fluxTitle={notes?.title}
                   fluxDescription={notes?.description}
@@ -99,7 +99,7 @@ const FluxDetail = () => {
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               rehypePlugins={[rehypeRaw]}
-              className="whitespace-pre-wrap"
+              className="mb-10 mt-10 whitespace-pre-wrap rounded-lg border border-[#d1d1d1] bg-[#E8EAEF] p-10"
               components={{
                 h1: ({ ...props }) => (
                   <h1
@@ -130,7 +130,7 @@ const FluxDetail = () => {
                 ),
                 li: ({ ...props }) => (
                   <li
-                    className="list-inside list-disc text-lg text-grey-700"
+                    className="text-grey-700 list-inside list-disc text-lg"
                     {...props}
                   />
                 ),
@@ -146,7 +146,7 @@ const FluxDetail = () => {
                       {String(children).replace(/\n$/, "")}
                     </SyntaxHighlighter>
                   ) : (
-                    <code className="bg-gray-300 px-2 rounded-sm" {...props}>
+                    <code className="rounded-sm bg-gray-300 px-2" {...props}>
                       {children}
                     </code>
                   );
