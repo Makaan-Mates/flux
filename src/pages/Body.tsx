@@ -10,7 +10,7 @@ import { CommandDialogDemo } from "@/components/custom/CommandDialogDemo";
 const AppLayout = () => {
   return (
     <>
-      <div className="flex">
+      <div className="flex font-geist ">
         <Sidebar />
         <Outlet />
       </div>

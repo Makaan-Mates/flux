@@ -7,15 +7,18 @@ import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import Customkey from "./CustomKey";
-
+import { IoBookmarks } from "react-icons/io5";
+import { SiInfluxdb } from "react-icons/si";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Sidebar = () => {
   const { logout, user, isAuthenticated } = useAuth0();
   const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
   const navigate = useNavigate();
   const [toggleCustomKey, setToggleCustomKey] = useState<boolean>(false);
-  // comsole.log(user)
- 
+  const [toggleProfile, setToggleProfile] = useState<boolean>(false);
+  // console.log(user)
+
   const [params, setParams] = useSearchParams();
 
   useEffect(() => {
@@ -43,14 +46,14 @@ const Sidebar = () => {
           "http://localhost:4000/api/accesstoken",
           {
             code: params.get("code"),
-          },
+          }
         );
 
         console.log(response);
         if (response?.data?.message?.access_token) {
           localStorage.setItem(
             "accessToken",
-            response?.data?.message?.access_token,
+            response?.data?.message?.access_token
           );
         }
       }
@@ -67,18 +70,17 @@ const Sidebar = () => {
     setToggleCustomKey(!toggleCustomKey);
   };
 
-
   return (
     <>
       <div className="max-h-screen w-56 bg-[#1C2839] shadow-md shadow-[#B4B4B4] sticky top-0 ">
         <div className="branding flex h-[10vh] items-center justify-center gap-2 py-5 ">
-          <div className="h-5 w-5   rounded-full bg-[#E2E5EB]"></div>
+          <SiInfluxdb className="text-2xl text-white" />
           <h1 className="text-3xl font-extrabold text-[#E2E5EB]">flux</h1>
         </div>
         <div className="flex h-[90vh] flex-col items-center justify-between">
           {" "}
           <div className="">
-            <div className="search-container ml-4 mt-8 ">
+            <div className="search-container  mt-8 flex items-center ">
               <div className="flex h-8 w-[185px] cursor-pointer items-center rounded-md bg-[#2A3647] pl-4 text-[#B7BFCC]">
                 <IoSearch className="text-md text-[#B7BFCC]" />
                 <label className="cursor-pointer pl-4 text-base">Search</label>
@@ -95,12 +97,12 @@ const Sidebar = () => {
               className="ml-4 mt-4 flex items-center gap-2 text-base text-[#E2E5EB] hover:bg-slate-600"
               onClick={() => navigate("/dashboard/bookmarkednotes")}
             >
-              <IoAddCircle className="text-xl" />
+              <IoBookmarks className="text-xl" />
               <label>Bookmarks</label>
             </div>
           </div>
-          <div className="">
-            <div className="my-2 flex cursor-pointer justify-center rounded-md bg-[#2A3647] px-2 py-2 text-[#B7BFCC]">
+          <div className="flex flex-col justify-center px-2">
+            <div className="my-2 h-10 flex cursor-pointer justify-center items-center rounded-md bg-[#2A3647] px-2 py-2 text-[#B7BFCC]">
               <a href="https://api.notion.com/v1/oauth/authorize?client_id=d022d63c-bf14-4483-b742-8f261dbcc2f3&response_type=code&owner=user&redirect_uri=http%3A%2F%2Flocalhost%3A5173%2Fdashboard">
                 <button>Connect to Notion</button>
               </a>
@@ -108,22 +110,39 @@ const Sidebar = () => {
 
             <div
               onClick={handleToggleCustomKey}
-              className="flex h-8 w-52 cursor-pointer items-center rounded-md bg-[#2A3647] pl-4 text-[#B7BFCC]"
+              className="h-10 flex w-52 cursor-pointer items-center justify-center rounded-md bg-[#2A3647] px-2 py-2 text-[#B7BFCC]"
             >
-              <FaPlus className="text-xs text-[#B7BFCC]" />
-              <label className="cursor-pointer pl-1 text-xs">
+              <FaPlus className="text-sm text-[#B7BFCC]" />
+              <label className="cursor-pointer pl-1 text-sm">
                 Enter your OpenAI API Key{" "}
               </label>
             </div>
-            <div className="p-4  text-white">{user?.name}</div>
-            <button
-              onClick={() =>
-                logout({ logoutParams: { returnTo: window.location.origin } })
-              }
-              className="m-8 rounded bg-red-500 px-4 py-1 font-bold text-white hover:bg-red-700"
+            <div
+              onClick={() => {
+                setToggleProfile(!toggleProfile);
+              }}
+              className="relative mb-4 mt-6 cursor-pointer text-white flex items-center justify-center gap-2"
             >
-              Logout
-            </button>
+              <Avatar>
+                <AvatarImage src={user?.picture} alt={user?.name} />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+              {user?.name}
+              {toggleProfile && (
+                <div className="absolute -top-7 left-40">
+                  <button
+                    onClick={() =>
+                      logout({
+                        logoutParams: { returnTo: window.location.origin },
+                      })
+                    }
+                    className="m-8 rounded bg-red-500 px-4 py-1 font-bold text-white hover:bg-red-700"
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
