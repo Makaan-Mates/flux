@@ -14,7 +14,7 @@ const Sidebar = () => {
   const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
   const navigate = useNavigate();
   const [toggleCustomKey, setToggleCustomKey] = useState<boolean>(false);
-  comsole.log(user)
+  // comsole.log(user)
  
   const [params, setParams] = useSearchParams();
 
@@ -70,7 +70,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className="max-h-screen w-56 bg-[#1C2839] shadow-md shadow-[#B4B4B4]">
+      <div className="max-h-screen w-56 bg-[#1C2839] shadow-md shadow-[#B4B4B4] sticky top-0 ">
         <div className="branding flex h-[10vh] items-center justify-center gap-2 py-5 ">
           <div className="h-5 w-5   rounded-full bg-[#E2E5EB]"></div>
           <h1 className="text-3xl font-extrabold text-[#E2E5EB]">flux</h1>

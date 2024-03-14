@@ -23,7 +23,7 @@ const BookMarkedNotes = () => {
     const fetchNotes = async () => {
       try {
         const response = await axios.get(
-          `${apiUrl}/api/getUserNotes?email=${email}`,
+          `${apiUrl}/api/getUserNotes?email=${email}`
         );
         setNotes(response.data.message);
       } catch (error) {
@@ -48,12 +48,12 @@ const BookMarkedNotes = () => {
   const bookmarkedNotes = notes?.filter((note: Notes) => note.bookmarked);
 
   return (
-    <div className="flex flex-wrap ">
+    <div className="flex flex-wrap px-12">
       {bookmarkedNotes
         ? bookmarkedNotes?.reverse().map((note: Notes) => (
             <div
               key={note?._id}
-              className="m-4 h-72 w-64 cursor-pointer overflow-hidden rounded bg-gray-300  shadow-lg "
+              className="m-4  h-56 w-[60vw] cursor-pointer overflow-hidden rounded bg-gray-300  shadow-lg "
               onClick={() => {
                 navigate(`/dashboard/fluxdetail/${note?.videoId}`);
               }}

@@ -10,13 +10,12 @@ import { CommandDialogDemo } from "@/components/custom/CommandDialogDemo";
 const AppLayout = () => {
   return (
     <>
-      <div className="flex max-h-screen">
+      <div className="flex">
         <Sidebar />
-
         <Outlet />
-        <CommandDialogDemo />
-        <Toaster />
       </div>
+      <CommandDialogDemo />
+      <Toaster />
     </>
   );
 };

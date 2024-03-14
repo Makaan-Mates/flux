@@ -5,10 +5,8 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import {
@@ -27,7 +25,92 @@ const FormSchema = z.object({
   }),
 });
 
-function SelectComponent({ fluxTitle, fluxDescription }) {
+// This function is a simplified placeholder. It only handles plain text conversion.
+function convertMarkdownToNotion(markdownText: string): any[] {
+  const notionBlocks: any[] = [];
+  const lines = markdownText.split("\n");
+
+  let inCodeBlock = false;
+  let codeContent = [];
+  let codeLanguage = "plain text";
+
+  lines.forEach((line) => {
+    if (line.startsWith("```") && !inCodeBlock) {
+      inCodeBlock = true;
+      codeContent = [];
+      const languageMatch = line.match(/^```(\w+)?/);
+      codeLanguage =
+        languageMatch && languageMatch[1] ? languageMatch[1] : "plain text";
+    } else if (line.startsWith("```") && inCodeBlock) {
+      inCodeBlock = false;
+      notionBlocks.push({
+        object: "block",
+        type: "code",
+        code: {
+          rich_text: [
+            { type: "text", text: { content: codeContent.join("\n") } },
+          ],
+          language: codeLanguage,
+        },
+      });
+      codeContent = [];
+    } else if (inCodeBlock) {
+      codeContent.push(line);
+    } else if (line.startsWith("# ")) {
+      notionBlocks.push({
+        object: "block",
+        type: "heading_1",
+        heading_1: {
+          rich_text: [{ type: "text", text: { content: line.slice(2) } }],
+        },
+      });
+    } else if (line.startsWith("## ")) {
+      notionBlocks.push({
+        object: "block",
+        type: "heading_2",
+        heading_2: {
+          rich_text: [{ type: "text", text: { content: line.slice(3) } }],
+        },
+      });
+    } else if (line.startsWith("### ")) {
+      notionBlocks.push({
+        object: "block",
+        type: "heading_3",
+        heading_3: {
+          rich_text: [{ type: "text", text: { content: line.slice(4) } }],
+        },
+      });
+    } else if (line.startsWith("- ")) {
+      notionBlocks.push({
+        object: "block",
+        type: "bulleted_list_item",
+        bulleted_list_item: {
+          rich_text: [{ type: "text", text: { content: line.slice(2) } }],
+        },
+      });
+    } else if (line.trim() !== "") {
+      notionBlocks.push({
+        object: "block",
+        type: "paragraph",
+        paragraph: {
+          rich_text: [{ type: "text", text: { content: line } }],
+        },
+      });
+    }
+  });
+
+  return notionBlocks;
+}
+
+function SelectComponent({
+  fluxTitle,
+  fluxDescription,
+  onRequestClose,
+}: {
+  fluxTitle: string;
+  fluxDescription: string;
+  onRequestClose: () => void;
+}) {
   const [notionPages, setNotionPages] = useState([]);
   const { user } = useAuth0();
   const email = user?.email;
@@ -36,7 +119,7 @@ function SelectComponent({ fluxTitle, fluxDescription }) {
     const fetchNotionPages = async () => {
       const response = await axios.post(
         "http://localhost:4000/api/fetchpages",
-        { access_token: access_token },
+        { access_token: access_token }
       );
       console.log(response.data.data);
       setNotionPages(response.data.data);
@@ -51,6 +134,8 @@ function SelectComponent({ fluxTitle, fluxDescription }) {
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     console.log(data);
 
+    const notionFormattedContent = convertMarkdownToNotion(fluxDescription);
+
     const pageCreationResponse = await axios.post(
       "http://localhost:4000/api/create/notionpage",
       {
@@ -58,7 +143,7 @@ function SelectComponent({ fluxTitle, fluxDescription }) {
         email: email,
         access_token: access_token,
         title: fluxTitle,
-      },
+      }
     );
 
     console.log(pageCreationResponse.data);
@@ -70,16 +155,20 @@ function SelectComponent({ fluxTitle, fluxDescription }) {
       {
         page_id: createdPageId,
         email: email,
-        content: fluxDescription,
+        content: notionFormattedContent,
         access_token: access_token,
-      },
+      }
     );
     console.log(appendContentResponse.data);
+    onRequestClose();
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="w-2/3 space-y-6 bg-[#1C2839] p-2 rounded-lg"
+      >
         <FormField
           control={form.control}
           name="page_id"
@@ -104,6 +193,14 @@ function SelectComponent({ fluxTitle, fluxDescription }) {
           )}
         />
         <Button type="submit">Submit</Button>
+        <Button
+          onClick={() => {
+            onRequestClose();
+          }}
+          className="bg-[#2A3647] hover:bg-purple-700 my-2 mx-2 px-4 rounded-md py-2"
+        >
+          Close
+        </Button>
       </form>
     </Form>
   );

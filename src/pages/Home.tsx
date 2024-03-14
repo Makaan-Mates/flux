@@ -7,7 +7,6 @@ import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useToast } from "@/components/ui/use-toast";
-import { CommandDialogDemo } from "@/components/custom/CommandDialogDemo";
 const Home = () => {
   const { user } = useAuth0();
   const navigate = useNavigate();
@@ -47,7 +46,7 @@ const Home = () => {
 
   return isLoading ? (
     <>
-      <div className="flex w-full flex-col items-center">
+      <div className="flex w-full flex-col items-center px-12">
         <div className="w-full">
           <Box sx={{ width: "100%" }}>
             <LinearProgress

@@ -17,7 +17,6 @@ function App() {
           </div>
         </RecoilRoot>
       </Auth0Provider>
-      ,
     </>
   );
 }
