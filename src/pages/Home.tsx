@@ -46,7 +46,7 @@ const Home = () => {
 
   return isLoading ? (
     <>
-      <div className="flex w-full flex-col items-center px-12">
+      <div className="flex w-full flex-col items-center px-12 ">
         <div className="w-full">
           <Box sx={{ width: "100%" }}>
             <LinearProgress
@@ -67,8 +67,8 @@ const Home = () => {
     </>
   ) : (
     <>
-      <div className="l-0 r-0 m-auto flex h-screen w-[50%] flex-col text-center">
-        <div className="mt-[25%] flex w-full justify-center space-x-12">
+      <div className="l-0 r-0 m-auto flex items-center h-screen w-full flex-col text-center">
+        <div className="mt-[15%] flex w-[80%] justify-center items-center space-x-12 ">
           <Input
             className="w-[50%] bg-[#EBEDF1] shadow-sm focus:outline-none"
             type="email"

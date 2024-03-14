@@ -38,7 +38,7 @@ const FluxDetail = () => {
   console.log(user);
   const { videoId = "" } = useParams();
   const notesLoadable = useRecoilValueLoadable(
-    notesAtom({ videoId: videoId, email: email }),
+    notesAtom({ videoId: videoId, email: email })
   );
 
   const [notes, setNotes] = useState<ReportData | null>(null);
@@ -68,10 +68,12 @@ const FluxDetail = () => {
           </div>
         </div>
       ) : (
-        <div className="mt-14">
-          <div className="px-20 text-2xl font-bold">{notes?.title}</div>
+        <div className="py-14 w-full ">
+          <div className="px-24 text-2xl font-bold text-left">
+            {notes?.title}
+          </div>
 
-          <div className="relative flex items-center px-16">
+          <div className="relative flex items-center justify-end px-24 ">
             <div>{notes && <Bookmark videoId={videoId} email={email} />}</div>
             <div>
               {notes && (
@@ -84,7 +86,7 @@ const FluxDetail = () => {
               )}
             </div>
             {notes && toggleNotion && (
-              <div className="absolute left-12 top-10 mb-10 mt-2 w-[50%]">
+              <div className="absolute right-0 top-10 mb-10 mt-2 w-[50%] flex justify-center">
                 <SelectComponent
                   fluxTitle={notes?.title}
                   fluxDescription={notes?.description}
@@ -95,11 +97,11 @@ const FluxDetail = () => {
               </div>
             )}
           </div>
-          <div className=" flex items-center justify-center px-20">
+          <div className=" flex items-center justify-center px-20 ">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               rehypePlugins={[rehypeRaw]}
-              className="mb-10 mt-10 whitespace-pre-wrap rounded-lg border border-[#d1d1d1] bg-[#E8EAEF] p-10"
+              className="mb-10 mt-10 whitespace-pre-wrap rounded-lg border border-[#d1d1d1] bg-[#E8EAEF] px-10 pt-8 "
               components={{
                 h1: ({ ...props }) => (
                   <h1

@@ -48,7 +48,7 @@ const BookMarkedNotes = () => {
   const bookmarkedNotes = notes?.filter((note: Notes) => note.bookmarked);
 
   return (
-    <div className="flex flex-wrap px-12">
+    <div className="flex w-full flex-wrap px-20 ">
       {bookmarkedNotes
         ? bookmarkedNotes?.reverse().map((note: Notes) => (
             <div

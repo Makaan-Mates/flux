@@ -1,6 +1,7 @@
 import Body from "./pages/Body";
 import { RecoilRoot } from "recoil";
 import { Auth0Provider } from "@auth0/auth0-react";
+
 function App() {
   return (
     <>

@@ -16,6 +16,7 @@
     "@hookform/resolvers": "^3.3.4",
     "@mui/material": "^5.15.10",
     "@notionhq/client": "^2.2.14",
+    "@radix-ui/react-avatar": "^1.0.4",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-popover": "^1.0.7",
@@ -26,6 +27,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "cmdk": "^0.2.1",
+    "geist": "^1.2.2",
     "lucide-react": "^0.323.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -39,6 +41,7 @@
     "remark-gfm": "^4.0.0",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
+    "unplugin-fonts": "^1.1.1",
     "zod": "^3.22.4"
   },
   "devDependencies": {
