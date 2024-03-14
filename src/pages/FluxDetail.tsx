@@ -153,10 +153,12 @@ const FluxDetail = () => {
                     {...props}
                   />
                 ),
-                code({ node, inline, className, children, ...props }) {
+                // @ts-ignore
+                code({ inline, className, children, ...props }) {
                   const match = /language-(\w+)/.exec(className || "");
                   return !inline && match ? (
                     <SyntaxHighlighter
+                    // @ts-ignore
                       style={dracula}
                       language={match[1]}
                       PreTag="div"
