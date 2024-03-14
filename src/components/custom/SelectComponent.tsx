@@ -19,6 +19,20 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
+
+interface NotionPage {
+  id: string;
+  properties: {
+    title: {
+      title: [
+        {
+          plain_text: string;
+        }
+      ];
+    };
+  };
+}
+
 const FormSchema = z.object({
   page_id: z.string({
     required_error: "Please select a notion page",
@@ -31,6 +45,7 @@ function convertMarkdownToNotion(markdownText: string): any[] {
   const lines = markdownText.split("\n");
 
   let inCodeBlock = false;
+  // @ts-ignore
   let codeContent = [];
   let codeLanguage = "plain text";
 
@@ -48,6 +63,7 @@ function convertMarkdownToNotion(markdownText: string): any[] {
         type: "code",
         code: {
           rich_text: [
+            // @ts-ignore
             { type: "text", text: { content: codeContent.join("\n") } },
           ],
           language: codeLanguage,
@@ -111,7 +127,7 @@ function SelectComponent({
   fluxDescription: string;
   onRequestClose: () => void;
 }) {
-  const [notionPages, setNotionPages] = useState([]);
+  const [notionPages, setNotionPages] = useState<NotionPage[]>([]);
   const { user } = useAuth0();
   const email = user?.email;
   const access_token = localStorage.getItem("accessToken");
@@ -119,7 +135,7 @@ function SelectComponent({
     const fetchNotionPages = async () => {
       const response = await axios.post(
         "http://localhost:4000/api/fetchpages",
-        { access_token: access_token }
+        { access_token: access_token },
       );
       console.log(response.data.data);
       setNotionPages(response.data.data);
@@ -143,7 +159,7 @@ function SelectComponent({
         email: email,
         access_token: access_token,
         title: fluxTitle,
-      }
+      },
     );
 
     console.log(pageCreationResponse.data);
@@ -157,7 +173,7 @@ function SelectComponent({
         email: email,
         content: notionFormattedContent,
         access_token: access_token,
-      }
+      },
     );
     console.log(appendContentResponse.data);
     onRequestClose();
@@ -167,7 +183,7 @@ function SelectComponent({
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-2/3 space-y-6 bg-[#1C2839] p-2 rounded-lg"
+        className="w-2/3 space-y-6 rounded-lg bg-[#1C2839] p-2"
       >
         <FormField
           control={form.control}
@@ -197,7 +213,7 @@ function SelectComponent({
           onClick={() => {
             onRequestClose();
           }}
-          className="bg-[#2A3647] hover:bg-purple-700 my-2 mx-2 px-4 rounded-md py-2"
+          className="mx-2 my-2 rounded-md bg-[#2A3647] px-4 py-2 hover:bg-purple-700"
         >
           Close
         </Button>

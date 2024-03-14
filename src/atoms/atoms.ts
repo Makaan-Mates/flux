@@ -1,4 +1,4 @@
-import { atomFamily, atom, selector, selectorFamily } from "recoil";
+import { atomFamily, selectorFamily } from "recoil";
 import axios from "axios";
 
 type Params = {
@@ -34,6 +34,7 @@ export const bookmarkAtom = atomFamily({
         return Promise.resolve(null);
       }
       const response = await axios.get(
+        // @ts-ignore
         `${apiUrl}/api/getUserNotes?email=${email}`,
       );
       return response.data.message;

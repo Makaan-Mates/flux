@@ -19,6 +19,7 @@ const Sidebar = () => {
   const [toggleProfile, setToggleProfile] = useState<boolean>(false);
   // console.log(user)
 
+  // @ts-ignore
   const [params, setParams] = useSearchParams();
 
   useEffect(() => {
@@ -46,14 +47,14 @@ const Sidebar = () => {
           "http://localhost:4000/api/accesstoken",
           {
             code: params.get("code"),
-          }
+          },
         );
 
         console.log(response);
         if (response?.data?.message?.access_token) {
           localStorage.setItem(
             "accessToken",
-            response?.data?.message?.access_token
+            response?.data?.message?.access_token,
           );
         }
       }
@@ -72,7 +73,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className="max-h-screen w-56 bg-[#1C2839] shadow-md shadow-[#B4B4B4] sticky top-0 ">
+      <div className="sticky top-0 max-h-screen w-56 bg-[#1C2839] shadow-md shadow-[#B4B4B4] ">
         <div className="branding flex h-[10vh] items-center justify-center gap-2 py-5 ">
           <SiInfluxdb className="text-2xl text-white" />
           <h1 className="text-3xl font-extrabold text-[#E2E5EB]">flux</h1>
@@ -102,7 +103,7 @@ const Sidebar = () => {
             </div>
           </div>
           <div className="flex flex-col justify-center px-2">
-            <div className="my-2 h-10 flex cursor-pointer justify-center items-center rounded-md bg-[#2A3647] px-2 py-2 text-[#B7BFCC]">
+            <div className="my-2 flex h-10 cursor-pointer items-center justify-center rounded-md bg-[#2A3647] px-2 py-2 text-[#B7BFCC]">
               <a href="https://api.notion.com/v1/oauth/authorize?client_id=d022d63c-bf14-4483-b742-8f261dbcc2f3&response_type=code&owner=user&redirect_uri=http%3A%2F%2Flocalhost%3A5173%2Fdashboard">
                 <button>Connect to Notion</button>
               </a>
@@ -110,7 +111,7 @@ const Sidebar = () => {
 
             <div
               onClick={handleToggleCustomKey}
-              className="h-10 flex w-52 cursor-pointer items-center justify-center rounded-md bg-[#2A3647] px-2 py-2 text-[#B7BFCC]"
+              className="flex h-10 w-52 cursor-pointer items-center justify-center rounded-md bg-[#2A3647] px-2 py-2 text-[#B7BFCC]"
             >
               <FaPlus className="text-sm text-[#B7BFCC]" />
               <label className="cursor-pointer pl-1 text-sm">
@@ -121,7 +122,7 @@ const Sidebar = () => {
               onClick={() => {
                 setToggleProfile(!toggleProfile);
               }}
-              className="relative mb-4 mt-6 cursor-pointer text-white flex items-center justify-center gap-2"
+              className="relative mb-4 mt-6 flex cursor-pointer items-center justify-center gap-2 text-white"
             >
               <Avatar>
                 <AvatarImage src={user?.picture} alt={user?.name} />
