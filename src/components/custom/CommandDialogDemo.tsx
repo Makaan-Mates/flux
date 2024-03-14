@@ -18,16 +18,21 @@ import { useState, useEffect } from "react";
 import { useRecoilValueLoadable } from "recoil";
 import { useNavigate } from "react-router-dom";
 
+interface NoteType {
+  title:string,
+  videoId:string
+  bookmarked:boolean
+}
+
 export function CommandDialogDemo() {
   const { user } = useAuth0();
   const email: string = user?.email || "";
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
   const notesLoadable = useRecoilValueLoadable(bookmarkAtom(email));
-  const [notes, setNotes] = useState();
+  const [notes, setNotes] = useState<NoteType[]>([]);
 
-  // @ts-ignore
-  const handleCommandSelect = (videoId) => {
+  const handleCommandSelect = (videoId:string) => {
     setOpen(false);
     navigate(`/dashboard/fluxdetail/${videoId}`);
   };
@@ -37,10 +42,7 @@ export function CommandDialogDemo() {
       setNotes(notesLoadable.contents);
     }
   }, [notesLoadable]);
-  // @ts-ignore
   const bookmarkedNotes = notes?.filter((note) => note.bookmarked);
-
-  console.log("Bookmark", bookmarkedNotes);
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -91,7 +93,6 @@ export function CommandDialogDemo() {
           <CommandSeparator />
           <CommandGroup heading="Bookmarked Flux">
             {bookmarkedNotes &&
-              // @ts-ignore
               bookmarkedNotes?.map((note) => (
                 <CommandItem
                   className="cursor-pointer"

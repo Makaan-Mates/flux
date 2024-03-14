@@ -24,7 +24,6 @@ export const notesAtom = atomFamily({
       },
   }),
 });
-
 export const bookmarkAtom = atomFamily({
   key: "bookmarkAtom",
   default: selectorFamily({
@@ -34,8 +33,7 @@ export const bookmarkAtom = atomFamily({
         return Promise.resolve(null);
       }
       const response = await axios.get(
-        // @ts-ignore
-        `${apiUrl}/api/getUserNotes?email=${email}`,
+        `${apiUrl}/api/getUserNotes?email=${String(email)}`,
       );
       return response.data.message;
     },

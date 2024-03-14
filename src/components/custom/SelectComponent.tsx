@@ -33,6 +33,30 @@ interface NotionPage {
   };
 }
 
+interface NotionBlockType {
+  object: string;
+  type: string;
+  code?: {
+    rich_text: { type: string; text: { content: string } }[];
+    language: string;
+  };
+  heading_1?: {
+    rich_text: { type: string; text: { content: string } }[];
+  };
+  heading_2?: {
+    rich_text: { type: string; text: { content: string } }[];
+  };
+  heading_3?: {
+    rich_text: { type: string; text: { content: string } }[];
+  };
+  bulleted_list_item?: {
+    rich_text: { type: string; text: { content: string } }[];
+  };
+  paragraph?: {
+    rich_text: { type: string; text: { content: string } }[];
+  };
+}
+
 const FormSchema = z.object({
   page_id: z.string({
     required_error: "Please select a notion page",
@@ -40,13 +64,12 @@ const FormSchema = z.object({
 });
 
 // This function is a simplified placeholder. It only handles plain text conversion.
-function convertMarkdownToNotion(markdownText: string): any[] {
-  const notionBlocks: any[] = [];
+function convertMarkdownToNotion(markdownText: string): NotionBlockType[] {
+  const notionBlocks: NotionBlockType[] = [];
   const lines = markdownText.split("\n");
 
   let inCodeBlock = false;
-  // @ts-ignore
-  let codeContent = [];
+  let codeContent: string[] = [];
   let codeLanguage = "plain text";
 
   lines.forEach((line) => {
@@ -63,7 +86,6 @@ function convertMarkdownToNotion(markdownText: string): any[] {
         type: "code",
         code: {
           rich_text: [
-            // @ts-ignore
             { type: "text", text: { content: codeContent.join("\n") } },
           ],
           language: codeLanguage,
@@ -135,7 +157,7 @@ function SelectComponent({
     const fetchNotionPages = async () => {
       const response = await axios.post(
         "http://localhost:4000/api/fetchpages",
-        { access_token: access_token },
+        { access_token: access_token }
       );
       console.log(response.data.data);
       setNotionPages(response.data.data);
@@ -159,7 +181,7 @@ function SelectComponent({
         email: email,
         access_token: access_token,
         title: fluxTitle,
-      },
+      }
     );
 
     console.log(pageCreationResponse.data);
@@ -173,7 +195,7 @@ function SelectComponent({
         email: email,
         content: notionFormattedContent,
         access_token: access_token,
-      },
+      }
     );
     console.log(appendContentResponse.data);
     onRequestClose();

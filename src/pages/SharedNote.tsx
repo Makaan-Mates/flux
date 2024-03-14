@@ -25,7 +25,6 @@ const SharedNote = () => {
     const response = axios.get(`${apiUrl}/api/notes/shared/${noteId}`);
     response.then((res) => {
       setNote(res.data.message);
-      console.log(res.data.message);
       setIsLoading(false);
     });
   }, [noteId]);
@@ -86,9 +85,10 @@ const SharedNote = () => {
             ),
             code({ className, children, ...props }) {
               const match = /language-(\w+)/.exec(className || "");
-              return  match ? (
+
+              return match ? (
                 <SyntaxHighlighter
-                // @ts-ignore
+                  // @ts-expect-error Dracula style TypeError
                   style={dracula}
                   language={match[1]}
                   PreTag="div"
