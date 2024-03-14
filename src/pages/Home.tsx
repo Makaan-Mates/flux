@@ -22,11 +22,10 @@ const Home = () => {
       setIsLoading(true);
 
       try {
-        const response = await axios.post(`${apiUrl}/api/createflux`, {
+        await axios.post(`${apiUrl}/api/createflux`, {
           videoId: videoId,
           email: user?.email,
         });
-        console.log(response.data);
 
         navigate(`/dashboard/fluxdetail/${videoId}`);
       } catch (error) {

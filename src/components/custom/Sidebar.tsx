@@ -19,8 +19,9 @@ const Sidebar = () => {
   const [toggleProfile, setToggleProfile] = useState<boolean>(false);
   // console.log(user)
 
-  // @ts-ignore
   const [params, setParams] = useSearchParams();
+
+  console.log(setParams);
 
   useEffect(() => {
     const storeUserData = async () => {
@@ -47,21 +48,21 @@ const Sidebar = () => {
           "http://localhost:4000/api/accesstoken",
           {
             code: params.get("code"),
-          },
+          }
         );
 
         console.log(response);
         if (response?.data?.message?.access_token) {
           localStorage.setItem(
             "accessToken",
-            response?.data?.message?.access_token,
+            response?.data?.message?.access_token
           );
         }
       }
     };
 
     getAccessToken();
-  }, [params.get("code")]);
+  }, [params]);
 
   const handleToggleCustomKey = () => {
     setToggleCustomKey(!toggleCustomKey);

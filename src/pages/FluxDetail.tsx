@@ -38,10 +38,10 @@ const FluxDetail = () => {
 
   const email: string = user?.email || "";
 
-  console.log(user);
+  // console.log(user);
   const { videoId = "" } = useParams();
   const notesLoadable = useRecoilValueLoadable(
-    notesAtom({ videoId: videoId, email: email }),
+    notesAtom({ videoId: videoId, email: email })
   );
 
   const [notes, setNotes] = useState<ReportData | null>(null);
@@ -88,10 +88,15 @@ const FluxDetail = () => {
 
           <div className="relative flex items-center justify-end px-28 ">
             <div>{notes && <Bookmark videoId={videoId} email={email} />}</div>
-            <TbSend
-              className="mr-3 cursor-pointer text-2xl"
-              onClick={() => copyShareableLink()}
-            />
+            <div>
+              {notes && (
+                <TbSend
+                  className="mr-3 cursor-pointer text-2xl"
+                  onClick={() => copyShareableLink()}
+                />
+              )}
+            </div>
+
             <div>
               {notes && (
                 <RiNotionFill
@@ -114,7 +119,8 @@ const FluxDetail = () => {
               </div>
             )}
           </div>
-          <div className=" flex items-center justify-center px-20">
+          
+          <div className=" flex items-center justify-center px-20 ">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               rehypePlugins={[rehypeRaw]}
@@ -153,12 +159,18 @@ const FluxDetail = () => {
                     {...props}
                   />
                 ),
-                // @ts-ignore
-                code({ inline, className, children, ...props }) {
+                code({
+                  inline,
+                  className = "",
+                  children,
+                  ...props
+                }: React.PropsWithChildren<{
+                  inline?: boolean;
+                  className?: string;
+                }>) {
                   const match = /language-(\w+)/.exec(className || "");
                   return !inline && match ? (
                     <SyntaxHighlighter
-                    // @ts-ignore
                       style={dracula}
                       language={match[1]}
                       PreTag="div"
