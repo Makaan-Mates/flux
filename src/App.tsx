@@ -9,7 +9,7 @@ function App() {
         domain="sourabhrathour.us.auth0.com"
         clientId="j16YpB4zK6llSTvxuXIzwN4G3GUSwMwS"
         authorizationParams={{
-          redirect_uri: "http://masklabs.vercel.app/dashboard/",
+          redirect_uri: "https://masklabs.vercel.app/dashboard/",
         }}
       >
         <RecoilRoot>
