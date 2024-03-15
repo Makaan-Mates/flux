@@ -18,7 +18,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useToast } from "@/components/ui/use-toast";
+import { toast } from "sonner";
 
 const frameworks = [
   {
@@ -43,7 +43,6 @@ const Customkey = ({
   const [validateApiKey, setValidateApiKey] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
   const [value, setValue] = useState<string>("");
-  const { toast } = useToast();
 
   const handleSaveAPIkey = async (event: React.FormEvent) => {
     event?.preventDefault();
@@ -71,9 +70,7 @@ const Customkey = ({
       email: email,
       customGPTModel: customGPTModel,
     });
-    toast({
-      title: response?.data?.message,
-    });
+    toast(response?.data?.message);
     setValidateApiKey(false);
     onRequestClose();
   };
@@ -83,33 +80,31 @@ const Customkey = ({
       email: email,
     });
     console.log(response);
-    toast({
-      title: response?.data?.message,
-    });
+    toast(response?.data?.message);
     onRequestClose();
   };
 
   return (
     <>
-      <div className="Customkeydiv w-[90%]  sm:w-[100vh]  z-50  items-center justify-center fixed top-[12vh] left-0  right-0 m-auto   rounded-xl bg-[#1C2839] text-white py-4 px-4">
+      <div className="Customkeydiv fixed  left-0  right-0  top-[12vh] z-50 m-auto w-[90%] items-center  justify-center rounded-xl   bg-[#1C2839] px-4 py-4 text-white sm:w-[100vh]">
         <form onSubmit={handleSaveAPIkey} className="flex items-center">
           <input
             ref={customkeyRef}
             type="text"
-            className="w-full h-12 px-4 py-1 placeholder:text-[#d1d1d1] text-sm  bg-[#2A3647] rounded-md  focus:outline-none   "
+            className="h-12 w-full rounded-md bg-[#2A3647] px-4 py-1  text-sm placeholder:text-[#d1d1d1]  focus:outline-none   "
             placeholder="Enter your OpenAI API Key"
           />
-          <div className=" h-12 rounded-r-md hover:bg-[#2A3647] hover:border-l-[0.1px] border-[#515151] overflow-hidden flex items-center justify-center ">
+          <div className=" flex h-12 items-center justify-center overflow-hidden rounded-r-md border-[#515151] hover:border-l-[0.1px] hover:bg-[#2A3647] ">
             <button
               type="submit"
-              className="w-14 h-12 flex justify-center  items-center"
+              className="flex h-12 w-14 items-center  justify-center"
             >
               <FaArrowRight />
             </button>
           </div>
         </form>
         {validateApiKey && (
-          <div className="text-red-500 text-sm my-2 px-1">
+          <div className="my-2 px-1 text-sm text-red-500">
             Invalid API key format.Please enter a valid OpenAI API key.
           </div>
         )}
@@ -121,7 +116,7 @@ const Customkey = ({
                 variant="outline"
                 role="combobox"
                 aria-expanded={open}
-                className="w-[200px] justify-between text-[#d1d1d1] hover:text-white focus:outline-none bg-[#2A3647]  hover:bg-[#2A3647]"
+                className="w-[200px] justify-between bg-[#2A3647] text-[#d1d1d1] hover:bg-[#2A3647] hover:text-white  focus:outline-none"
               >
                 {value
                   ? frameworks.find((framework) => framework.value === value)
@@ -130,7 +125,7 @@ const Customkey = ({
                 <RxCaretSort className="ml-2 h-4 w-4 shrink-0 opacity-50" />
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-[200px] p-0 bg-[#1C2839]">
+            <PopoverContent className="w-[200px] bg-[#1C2839] p-0">
               <Command className="bg-[#2A3647]  text-[#d1d1d1]">
                 <CommandInput
                   placeholder="Search model..."
@@ -154,7 +149,7 @@ const Customkey = ({
                           "ml-auto h-4 w-4 text-[#d1d1d1]",
                           value === framework.value
                             ? "opacity-100"
-                            : "opacity-0"
+                            : "opacity-0",
                         )}
                       />
                     </CommandItem>
@@ -164,10 +159,10 @@ const Customkey = ({
             </PopoverContent>
           </Popover>
         </div>
-        <div className="w-full  flex justify-end px-2">
+        <div className="flex  w-full justify-end px-2">
           <button
             onClick={handleDeleteApikey}
-            className="bg-[#2A3647] hover:bg-purple-700 my-2 px-4 rounded-md py-2"
+            className="my-2 rounded-md bg-[#2A3647] px-4 py-2 hover:bg-purple-700"
           >
             Delete API
           </button>
