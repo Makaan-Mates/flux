@@ -44,12 +44,9 @@ const Sidebar = () => {
   useEffect(() => {
     const getAccessToken = async () => {
       if (params.get("code")) {
-        const response = await axios.post(
-          "http://localhost:4000/api/accesstoken",
-          {
-            code: params.get("code"),
-          }
-        );
+        const response = await axios.post(`${apiUrl}/api/accesstoken`, {
+          code: params.get("code"),
+        });
 
         console.log(response);
         if (response?.data?.message?.access_token) {

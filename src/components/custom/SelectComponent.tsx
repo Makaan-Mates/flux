@@ -153,10 +153,12 @@ function SelectComponent({
   const { user } = useAuth0();
   const email = user?.email;
   const access_token = localStorage.getItem("accessToken");
+  const apiUrl = import.meta.env.VITE_REACT_APP_API_URL;
+
   useEffect(() => {
     const fetchNotionPages = async () => {
       const response = await axios.post(
-        "http://localhost:4000/api/fetchpages",
+        `${apiUrl}/api/fetchpages`,
         { access_token: access_token }
       );
       console.log(response.data.data);
@@ -175,7 +177,7 @@ function SelectComponent({
     const notionFormattedContent = convertMarkdownToNotion(fluxDescription);
 
     const pageCreationResponse = await axios.post(
-      "http://localhost:4000/api/create/notionpage",
+      `${apiUrl}/api/create/notionpage`,
       {
         page_id: data.page_id,
         email: email,
@@ -189,7 +191,7 @@ function SelectComponent({
     console.log(`Created page id: ${createdPageId}`);
 
     const appendContentResponse = await axios.post(
-      "http://localhost:4000/api/appendcontent",
+      `${apiUrl}/api/appendcontent`,
       {
         page_id: createdPageId,
         email: email,
