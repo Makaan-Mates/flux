@@ -23,6 +23,10 @@ const Sidebar = () => {
 
   console.log(setParams);
 
+  const redirectUri = import.meta.env.MODE === 'development'
+  ? import.meta.env.VITE_LOCAL_REDIRECT_URI
+  : import.meta.env.VITE_PROD_REDIRECT_URI;
+
   useEffect(() => {
     const storeUserData = async () => {
       if (user) {
@@ -52,7 +56,7 @@ const Sidebar = () => {
         if (response?.data?.message?.access_token) {
           localStorage.setItem(
             "accessToken",
-            response?.data?.message?.access_token
+            response?.data?.message?.access_token,
           );
         }
       }
@@ -102,7 +106,7 @@ const Sidebar = () => {
           </div>
           <div className="flex flex-col justify-center px-2">
             <div className="my-2 flex h-10 cursor-pointer items-center justify-center rounded-md bg-[#2A3647] px-2 py-2 text-[#B7BFCC]">
-              <a href="https://api.notion.com/v1/oauth/authorize?client_id=d022d63c-bf14-4483-b742-8f261dbcc2f3&response_type=code&owner=user&redirect_uri=http%3A%2F%2Flocalhost%3A5173%2Fdashboard">
+              <a href={`https://api.notion.com/v1/oauth/authorize?client_id=d022d63c-bf14-4483-b742-8f261dbcc2f3&response_type=code&owner=user&redirect_uri=${encodeURIComponent(redirectUri)}`}>
                 <button>Connect to Notion</button>
               </a>
             </div>
