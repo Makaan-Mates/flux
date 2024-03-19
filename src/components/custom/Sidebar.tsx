@@ -10,6 +10,7 @@ import Customkey from "./CustomKey";
 import { IoBookmarks } from "react-icons/io5";
 import { SiInfluxdb } from "react-icons/si";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { MdKeyboardCommandKey } from "react-icons/md";
 
 const Sidebar = () => {
   const { logout, user, isAuthenticated } = useAuth0();
@@ -23,9 +24,10 @@ const Sidebar = () => {
 
   console.log(setParams);
 
-  const redirectUri = import.meta.env.MODE === 'development'
-  ? import.meta.env.VITE_LOCAL_REDIRECT_URI
-  : import.meta.env.VITE_PROD_REDIRECT_URI;
+  const redirectUri =
+    import.meta.env.MODE === "development"
+      ? import.meta.env.VITE_LOCAL_REDIRECT_URI
+      : import.meta.env.VITE_PROD_REDIRECT_URI;
 
   useEffect(() => {
     const storeUserData = async () => {
@@ -56,7 +58,7 @@ const Sidebar = () => {
         if (response?.data?.message?.access_token) {
           localStorage.setItem(
             "accessToken",
-            response?.data?.message?.access_token,
+            response?.data?.message?.access_token
           );
         }
       }
@@ -84,9 +86,18 @@ const Sidebar = () => {
           {" "}
           <div className="">
             <div className="search-container  mt-8 flex items-center ">
-              <div className="flex h-8 w-[185px] cursor-pointer items-center rounded-md bg-[#2A3647] pl-4 text-[#B7BFCC]">
-                <IoSearch className="text-md text-[#B7BFCC]" />
-                <label className="cursor-pointer pl-4 text-base">Search</label>
+              <div className="flex h-8 w-[185px] cursor-pointer items-center justify-between rounded-md bg-[#2A3647] pl-4 text-[#B7BFCC]">
+                <div className="flex cursor-pointer items-center ">
+                  <IoSearch className="text-md text-[#B7BFCC]" />
+                  <label className="cursor-pointer pl-2 text-base">
+                    Search
+                  </label>
+                </div>
+
+                <div className="hidden sm:flex  items-center border-[1px] border-[#363636] rounded-md text-sm px-1 ">
+                  <MdKeyboardCommandKey className=" text-[#9B9B9B]  " />
+                  <span>K</span>
+                </div>
               </div>
             </div>
             <div
@@ -106,7 +117,11 @@ const Sidebar = () => {
           </div>
           <div className="flex flex-col justify-center px-2">
             <div className="my-2 flex h-10 cursor-pointer items-center justify-center rounded-md bg-[#2A3647] px-2 py-2 text-[#B7BFCC]">
-              <a href={`https://api.notion.com/v1/oauth/authorize?client_id=d022d63c-bf14-4483-b742-8f261dbcc2f3&response_type=code&owner=user&redirect_uri=${encodeURIComponent(redirectUri)}`}>
+              <a
+                href={`https://api.notion.com/v1/oauth/authorize?client_id=d022d63c-bf14-4483-b742-8f261dbcc2f3&response_type=code&owner=user&redirect_uri=${encodeURIComponent(
+                  redirectUri
+                )}`}
+              >
                 <button>Connect to Notion</button>
               </a>
             </div>
