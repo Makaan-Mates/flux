@@ -24,7 +24,7 @@ const Sidebar = () => {
   const [toggleProfile, setToggleProfile] = useState<boolean>(false);
   // console.log(user)
   const [toggleSearch, setToggleSearch] = useRecoilState(SearchBoxAtom);
-  const [toggleSideBar, setToggleSideBar] = useState<boolean>(true);
+  const [toggleSideBar, setToggleSideBar] = useState<boolean>(false);
 
   const [params] = useSearchParams();
 
@@ -82,7 +82,7 @@ const Sidebar = () => {
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 768px)");
 
-    const handleMediaQueryChange = (e:MediaQueryListEvent) => {
+    const handleMediaQueryChange = (e: MediaQueryListEvent) => {
       if (e.matches) {
         setToggleSideBar(false);
       }
