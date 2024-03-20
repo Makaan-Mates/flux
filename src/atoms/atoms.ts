@@ -1,4 +1,4 @@
-import { atomFamily, selectorFamily } from "recoil";
+import { atom, atomFamily, selectorFamily } from "recoil";
 import axios from "axios";
 
 type Params = {
@@ -18,7 +18,7 @@ export const notesAtom = atomFamily({
           return Promise.resolve(null);
         }
         const response = await axios.get(
-          `${apiUrl}/api/getfluxdetail?videoId=${videoId}&email=${email}`,
+          `${apiUrl}/api/getfluxdetail?videoId=${videoId}&email=${email}`
         );
         return response.data.message;
       },
@@ -33,9 +33,14 @@ export const bookmarkAtom = atomFamily({
         return Promise.resolve(null);
       }
       const response = await axios.get(
-        `${apiUrl}/api/getUserNotes?email=${String(email)}`,
+        `${apiUrl}/api/getUserNotes?email=${String(email)}`
       );
       return response.data.message;
     },
   }),
+});
+
+export const SearchBoxAtom = atom({
+  key: "ToggleSearchBox",
+  default: false,
 });

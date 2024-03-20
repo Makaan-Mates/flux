@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { Calculator, Calendar, CreditCard, Smile } from "lucide-react";
-
 import {
   CommandDialog,
   CommandEmpty,
@@ -17,22 +16,24 @@ import { bookmarkAtom } from "../../atoms/atoms";
 import { useState, useEffect } from "react";
 import { useRecoilValueLoadable } from "recoil";
 import { useNavigate } from "react-router-dom";
+import { SearchBoxAtom } from "@/atoms/atoms";
+import { useRecoilState } from "recoil";
 
 interface NoteType {
-  title:string,
-  videoId:string
-  bookmarked:boolean
+  title: string;
+  videoId: string;
+  bookmarked: boolean;
 }
 
 export function CommandDialogDemo() {
   const { user } = useAuth0();
   const email: string = user?.email || "";
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useRecoilState(SearchBoxAtom)
   const navigate = useNavigate();
   const notesLoadable = useRecoilValueLoadable(bookmarkAtom(email));
   const [notes, setNotes] = useState<NoteType[]>([]);
 
-  const handleCommandSelect = (videoId:string) => {
+  const handleCommandSelect = (videoId: string) => {
     setOpen(false);
     navigate(`/dashboard/fluxdetail/${videoId}`);
   };

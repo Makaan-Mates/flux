@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useToast } from "@/components/ui/use-toast";
+
 const Home = () => {
   const { user } = useAuth0();
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Home = () => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { toast } = useToast();
+
 
   const handleCreateFlux = async () => {
     if (videoId) {

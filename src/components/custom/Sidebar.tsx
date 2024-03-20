@@ -11,6 +11,8 @@ import { IoBookmarks } from "react-icons/io5";
 import { SiInfluxdb } from "react-icons/si";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MdKeyboardCommandKey } from "react-icons/md";
+import { useRecoilState } from "recoil";
+import { SearchBoxAtom } from "../../atoms/atoms";
 
 const Sidebar = () => {
   const { logout, user, isAuthenticated } = useAuth0();
@@ -19,10 +21,9 @@ const Sidebar = () => {
   const [toggleCustomKey, setToggleCustomKey] = useState<boolean>(false);
   const [toggleProfile, setToggleProfile] = useState<boolean>(false);
   // console.log(user)
+  const [toggleSearch, setToggleSearch] = useRecoilState(SearchBoxAtom);
 
-  const [params, setParams] = useSearchParams();
-
-  console.log(setParams);
+  const [params] = useSearchParams();
 
   const redirectUri =
     import.meta.env.MODE === "development"
@@ -86,7 +87,12 @@ const Sidebar = () => {
           {" "}
           <div className="">
             <div className="search-container  mt-8 flex items-center ">
-              <div className="flex h-8 w-[185px] cursor-pointer items-center justify-between rounded-md bg-[#2A3647] pl-4 text-[#B7BFCC]">
+              <div
+                onClick={() => {
+                  setToggleSearch(!toggleSearch);
+                }}
+                className="flex h-8 w-[185px] cursor-pointer items-center justify-between rounded-md bg-[#2A3647] pl-4 text-[#B7BFCC]"
+              >
                 <div className="flex cursor-pointer items-center ">
                   <IoSearch className="text-md text-[#B7BFCC]" />
                   <label className="cursor-pointer pl-2 text-base">
