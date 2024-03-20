@@ -9,6 +9,7 @@ import { CommandDialogDemo } from "@/components/custom/CommandDialogDemo";
 import SharedNote from "./SharedNote";
 
 const AppLayout = () => {
+
   return (
     <>
       <div className="font-geist flex ">
