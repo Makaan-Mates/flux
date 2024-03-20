@@ -82,7 +82,7 @@ const Sidebar = () => {
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 768px)");
 
-    const handleMediaQueryChange = (e) => {
+    const handleMediaQueryChange = (e:MediaQueryListEvent) => {
       if (e.matches) {
         setToggleSideBar(false);
       }
