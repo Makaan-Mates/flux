@@ -196,7 +196,6 @@ function SelectComponent({
     console.log(appendContentResponse.data);
     onRequestClose();
   }
-  console.log(notionPages);
   return (
     <Form {...form}>
       <form
