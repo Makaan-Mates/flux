@@ -157,23 +157,19 @@ function SelectComponent({
 
   useEffect(() => {
     const fetchNotionPages = async () => {
-      const response = await axios.post(
-        `${apiUrl}/api/fetchpages`,
-        { access_token: access_token }
-      );
-      console.log(response.data.data);
+      const response = await axios.post(`${apiUrl}/api/fetchpages`, {
+        access_token: access_token,
+      });
       setNotionPages(response.data.data);
     };
     fetchNotionPages();
-  }, []);
+  }, [access_token, apiUrl]);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
-
     const notionFormattedContent = convertMarkdownToNotion(fluxDescription);
 
     const pageCreationResponse = await axios.post(
@@ -186,9 +182,7 @@ function SelectComponent({
       }
     );
 
-    console.log(pageCreationResponse.data);
     const createdPageId = pageCreationResponse.data.data;
-    console.log(`Created page id: ${createdPageId}`);
 
     const appendContentResponse = await axios.post(
       `${apiUrl}/api/appendcontent`,
@@ -202,7 +196,7 @@ function SelectComponent({
     console.log(appendContentResponse.data);
     onRequestClose();
   }
-
+  console.log(notionPages);
   return (
     <Form {...form}>
       <form
