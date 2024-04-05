@@ -63,7 +63,6 @@ const Customkey = ({
       return;
     }
     const customGPTModel = value;
-    console.log(customGPTModel);
 
     const response = await axios.post(`${apiUrl}/user/savecustomopenaikey`, {
       customOpenAIkey: customOpenAIkey,
@@ -79,7 +78,6 @@ const Customkey = ({
     const response = await axios.post(`${apiUrl}/user/deletecustomopenaikey`, {
       email: email,
     });
-    console.log(response);
     toast(response?.data?.message);
     onRequestClose();
   };

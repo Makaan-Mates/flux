@@ -58,7 +58,6 @@ const Sidebar = () => {
           code: params.get("code"),
         });
 
-        console.log("access_token", response?.data?.message?.access_token);
         if (response?.data?.message?.access_token) {
           localStorage.setItem(
             "accessToken",
@@ -69,7 +68,7 @@ const Sidebar = () => {
     };
 
     getAccessToken();
-  }, [params]);
+  }, [params,apiUrl]);
 
   const handleToggleCustomKey = () => {
     setToggleCustomKey(!toggleCustomKey);

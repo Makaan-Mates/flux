@@ -22,15 +22,12 @@ interface Notes {
   _id: string;
 }
 
-interface ReportData extends Notes {
+interface FluxData extends Notes {
   data: {
     attributes: {
       content: string;
-      // add other attributes here
     };
-    // add other properties here
   };
-  // add other properties here
 }
 
 const FluxDetail = () => {
@@ -38,13 +35,12 @@ const FluxDetail = () => {
 
   const email: string = user?.email || "";
 
-  // console.log(user);
   const { videoId = "" } = useParams();
   const notesLoadable = useRecoilValueLoadable(
     notesAtom({ videoId: videoId, email: email })
   );
 
-  const [notes, setNotes] = useState<ReportData | null>(null);
+  const [notes, setNotes] = useState<FluxData | null>(null);
   const [toggleNotion, setToggleNotion] = useState<boolean>(false);
 
   useEffect(() => {
@@ -69,14 +65,7 @@ const FluxDetail = () => {
         <div className="flex w-full flex-col items-center ">
           <div className="w-full">
             <Box sx={{ width: "100%" }}>
-              <LinearProgress
-              // sx={{
-              //   backgroundColor: "#a3adbe",
-              //   "& .MuiLinearProgress-bar": {
-              //     backgroundColor: "#1C2839",
-              //   },
-              // }}
-              />
+              <LinearProgress />
             </Box>
           </div>
         </div>
@@ -119,7 +108,7 @@ const FluxDetail = () => {
               </div>
             )}
           </div>
-          
+
           <div className=" flex items-center justify-center px-20 ">
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
